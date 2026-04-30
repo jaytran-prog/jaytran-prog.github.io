@@ -1,76 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dose Diary — Privacy Policy</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-           background: #f2f2f7; color: #1c1c1e; }
-    .hero { background: linear-gradient(135deg, #007aff, #5856d6);
-            color: white; padding: 60px 24px 48px; text-align: center; }
-    .hero h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
-    .hero p  { font-size: 16px; opacity: 0.88; }
-    .card  { background: white; border-radius: 16px; padding: 28px;
-             max-width: 680px; margin: 24px auto; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
-    h2 { font-size: 17px; font-weight: 600; margin-bottom: 10px; color: #1c1c1e; }
-    p, li { font-size: 15px; color: #3a3a3c; line-height: 1.7; }
-    ul { padding-left: 20px; }
-    a  { color: #007aff; text-decoration: none; }
-    .badge { display: inline-block; background: #f2f2f7; border-radius: 8px;
-             padding: 4px 12px; font-size: 13px; color: #6e6e73; margin-top: 8px; }
-    footer { text-align: center; padding: 32px 24px; font-size: 13px; color: #8e8e93; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f2f2f7;color:#1c1c1e}
+    .hero{background:linear-gradient(135deg,#007aff,#5856d6);color:#fff;padding:56px 24px 44px;text-align:center}
+    .hero h1{font-size:30px;font-weight:700;margin-bottom:8px}
+    .hero p{font-size:15px;opacity:.88;margin-bottom:16px}
+    .badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:5px 16px;font-size:13px}
+    .lang-toggle{display:flex;justify-content:center;gap:8px;margin-top:20px}
+    .lang-toggle button{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.4);
+      color:#fff;border-radius:20px;padding:6px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+    .lang-toggle button.active{background:#fff;color:#007aff;border-color:#fff}
+    .container{max-width:700px;margin:0 auto;padding:24px 16px 48px}
+    .card{background:#fff;border-radius:16px;padding:24px 28px;margin-bottom:16px;
+      box-shadow:0 1px 8px rgba(0,0,0,.07)}
+    .card h2{font-size:16px;font-weight:600;color:#007aff;margin-bottom:12px;
+      display:flex;align-items:center;gap:8px}
+    .card p{font-size:15px;color:#3a3a3c;line-height:1.75;margin-bottom:10px}
+    .card p:last-child{margin-bottom:0}
+    .card ul{padding-left:20px;margin-top:8px}
+    .card ul li{font-size:15px;color:#3a3a3c;line-height:1.75;margin-bottom:4px}
+    .card a{color:#007aff;text-decoration:none}
+    .divider{border:none;border-top:1px solid #f2f2f7;margin:10px 0}
+    .vi{display:none} .en{display:block}
+    footer{text-align:center;padding:0 24px 40px;font-size:13px;color:#8e8e93}
+    footer a{color:#007aff;text-decoration:none}
   </style>
 </head>
 <body>
-  <div class="hero">
-    <h1>💊 Dose Diary</h1>
-    <p>Your personal medication companion</p>
-    <div class="badge">Available on the App Store</div>
+<div class="hero">
+  <h1>💊 Dose Diary</h1>
+  <p>Privacy Policy / Chính Sách Bảo Mật</p>
+  <div class="badge">Last updated: April 26, 2026</div>
+  <div class="lang-toggle">
+    <button class="active" onclick="setLang('en')">English</button>
+    <button onclick="setLang('vi')">Tiếng Việt</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h2>1. Introduction</h2>
+    <p class="en">Dose Diary ("we", "our", or "the app") is a medication tracking application designed to help users manage their medication schedules. This Privacy Policy explains how we handle your information.</p>
+    <p class="vi">Dose Diary ("chúng tôi" hoặc "ứng dụng") là ứng dụng theo dõi lịch uống thuốc được thiết kế để giúp người dùng quản lý lịch dùng thuốc của mình.</p>
   </div>
 
   <div class="card">
-    <h2>About</h2>
-    <p>Dose Diary helps you track any medication schedule — from complex hormone therapy (HRT)
-       to everyday prescriptions. Set reminders, log doses, and never miss a treatment.</p>
+    <h2>2. Information We Collect</h2>
+    <p class="en">Dose Diary stores all data locally on your device only. We do not collect, transmit, or store any personal health information on external servers.</p>
+    <p class="vi">Dose Diary lưu trữ toàn bộ dữ liệu trực tiếp trên thiết bị của bạn. Chúng tôi không thu thập, truyền tải hay lưu trữ bất kỳ thông tin sức khỏe cá nhân nào trên máy chủ bên ngoài.</p>
+    <p class="en" style="margin-top:8px;font-weight:600">Data stored locally on your device includes:</p>
+    <p class="vi" style="margin-top:8px;font-weight:600">Dữ liệu được lưu trữ cục bộ bao gồm:</p>
+    <ul>
+      <li class="en">Medication names and dosage information you enter</li>
+      <li class="vi">Tên thuốc và thông tin liều lượng bạn nhập vào</li>
+      <li class="en">Medication schedules and reminders you create</li>
+      <li class="vi">Lịch dùng thuốc và nhắc nhở bạn tạo</li>
+      <li class="en">Dose logs and adherence history</li>
+      <li class="vi">Lịch sử ghi nhận liều và mức độ tuân thủ</li>
+    </ul>
   </div>
 
   <div class="card">
-    <h2>🔒 Privacy Policy</h2>
-    <p><em>Last updated: April 2026</em></p>
-  </div>
-
-  <div class="card">
-    <h2>1. Data Storage</h2>
-    <p>All your medication data is stored <strong>locally on your device only</strong>.
-       We do not collect, transmit, or store any personal health information on external servers.</p>
-  </div>
-
-  <div class="card">
-    <h2>2. Advertising</h2>
-    <p>Dose Diary displays ads via <strong>Google AdMob</strong> to keep the app free.
-       AdMob may use your device's advertising identifier (IDFA) to show relevant ads.
-       You can opt out at any time in <em>Settings → Privacy &amp; Security → Tracking</em>.</p>
-  </div>
-
-  <div class="card">
-    <h2>3. Analytics</h2>
-    <p>We do not use any third-party analytics SDKs. No usage data is sent to our servers.</p>
+    <h2>3. Third-Party Advertising</h2>
+    <p class="en">Dose Diary uses Google AdMob to display advertisements. Google AdMob may collect and use data to serve personalized ads, including:</p>
+    <p class="vi">Dose Diary sử dụng Google AdMob để hiển thị quảng cáo. Google AdMob có thể thu thập và sử dụng dữ liệu để phục vụ quảng cáo được cá nhân hóa, bao gồm:</p>
+    <ul>
+      <li class="en">Advertising identifiers (IDFA)</li>
+      <li class="vi">Mã định danh quảng cáo (IDFA)</li>
+      <li class="en">Device information</li>
+      <li class="vi">Thông tin thiết bị</li>
+      <li class="en">Usage data</li>
+      <li class="vi">Dữ liệu sử dụng</li>
+    </ul>
+    <p class="en" style="margin-top:12px">For more information: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a></p>
+    <p class="vi" style="margin-top:12px">Xem thêm: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a></p>
+    <p class="en">You can opt out of personalized advertising in <em>Settings → Privacy → Tracking</em>.</p>
+    <p class="vi">Bạn có thể từ chối quảng cáo cá nhân hóa tại <em>Cài đặt → Quyền riêng tư → Theo dõi</em>.</p>
   </div>
 
   <div class="card">
     <h2>4. Notifications</h2>
-    <p>Dose Diary requests notification permission solely to send medication reminders.
-       This data stays on your device and is never shared.</p>
+    <p class="en">If you enable medication reminders, the app uses Apple's local notification system. These notifications are processed entirely on your device and no notification data is sent to external servers.</p>
+    <p class="vi">Nếu bạn bật nhắc nhở uống thuốc, ứng dụng sử dụng hệ thống thông báo cục bộ của Apple. Các thông báo được xử lý hoàn toàn trên thiết bị của bạn và không có dữ liệu nào được gửi đến máy chủ bên ngoài.</p>
   </div>
 
   <div class="card">
-    <h2>5. Contact</h2>
-    <p>Questions or concerns? Reach us at
-       <a href="mailto:jaytran.prog@gmail.com">jaytran.prog@gmail.com</a></p>
+    <h2>5. Data Security</h2>
+    <p class="en">All health data you enter is stored exclusively on your device using Apple's SwiftData framework. We do not have access to this data. If you delete the app, all locally stored data will be permanently removed.</p>
+    <p class="vi">Toàn bộ dữ liệu sức khỏe bạn nhập được lưu trữ độc quyền trên thiết bị của bạn thông qua framework SwiftData của Apple. Chúng tôi không có quyền truy cập vào dữ liệu này. Nếu bạn xóa ứng dụng, toàn bộ dữ liệu cục bộ sẽ bị xóa vĩnh viễn.</p>
   </div>
 
-  <footer>© 2026 Dose Diary · <a href="https://jaytran-prog.github.io">jaytran-prog.github.io</a></footer>
+  <div class="card">
+    <h2>6. Children's Privacy</h2>
+    <p class="en">Dose Diary is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13.</p>
+    <p class="vi">Dose Diary không dành cho trẻ em dưới 13 tuổi. Chúng tôi không cố ý thu thập thông tin cá nhân từ trẻ em dưới 13 tuổi.</p>
+  </div>
+
+  <div class="card">
+    <h2>7. Changes to This Policy</h2>
+    <p class="en">We may update this Privacy Policy from time to time. We will notify you of any changes by updating the "Last updated" date at the top of this page.</p>
+    <p class="vi">Chúng tôi có thể cập nhật Chính Sách Bảo Mật này theo thời gian. Chúng tôi sẽ thông báo về bất kỳ thay đổi nào bằng cách cập nhật ngày "Cập nhật lần cuối" ở đầu trang này.</p>
+  </div>
+
+  <div class="card">
+    <h2>8. Contact Us</h2>
+    <p class="en">If you have any questions about this Privacy Policy, please contact us at:<br><a href="mailto:jay.tran@kreebox.com">jay.tran@kreebox.com</a></p>
+    <p class="vi">Nếu bạn có bất kỳ câu hỏi nào về Chính Sách Bảo Mật này, vui lòng liên hệ:<br><a href="mailto:jay.tran@kreebox.com">jay.tran@kreebox.com</a></p>
+    <p class="en" style="margin-top:12px;color:#8e8e93;font-size:14px">This app was developed by Phuong Tran.</p>
+    <p class="vi" style="margin-top:12px;color:#8e8e93;font-size:14px">Ứng dụng này được phát triển bởi Phuong Tran.</p>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Dose Diary &nbsp;·&nbsp;
+  <a href="https://jaytran-prog.github.io">jaytran-prog.github.io</a>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll('.en').forEach(el => el.style.display = lang==='en' ? 'block' : 'none');
+  document.querySelectorAll('li.en').forEach(el => el.style.display = lang==='en' ? 'list-item' : 'none');
+  document.querySelectorAll('.vi').forEach(el => el.style.display = lang==='vi' ? 'block' : 'none');
+  document.querySelectorAll('li.vi').forEach(el => el.style.display = lang==='vi' ? 'list-item' : 'none');
+  document.querySelectorAll('.lang-toggle button').forEach((btn,i) => {
+    btn.classList.toggle('active', (lang==='en' && i===0) || (lang==='vi' && i===1));
+  });
+}
+</script>
 </body>
 </html>
