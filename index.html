@@ -3,136 +3,587 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dose Diary — Privacy Policy</title>
+  <title>Dose Diary — Smart Medication Tracker</title>
+  <meta name="description" content="A personal medication tracker built with love for people managing complex treatment schedules."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f2f2f7;color:#1c1c1e}
-    .hero{background:linear-gradient(135deg,#007aff,#5856d6);color:#fff;padding:56px 24px 44px;text-align:center}
-    .hero h1{font-size:30px;font-weight:700;margin-bottom:8px}
-    .hero p{font-size:15px;opacity:.88;margin-bottom:16px}
-    .badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:5px 16px;font-size:13px}
-    .lang-toggle{display:flex;justify-content:center;gap:8px;margin-top:20px}
-    .lang-toggle button{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.4);
-      color:#fff;border-radius:20px;padding:6px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
-    .lang-toggle button.active{background:#fff;color:#007aff;border-color:#fff}
-    .container{max-width:700px;margin:0 auto;padding:24px 16px 48px}
-    .card{background:#fff;border-radius:16px;padding:24px 28px;margin-bottom:16px;
-      box-shadow:0 1px 8px rgba(0,0,0,.07)}
-    .card h2{font-size:16px;font-weight:600;color:#007aff;margin-bottom:12px;
-      display:flex;align-items:center;gap:8px}
-    .card p{font-size:15px;color:#3a3a3c;line-height:1.75;margin-bottom:10px}
-    .card p:last-child{margin-bottom:0}
-    .card ul{padding-left:20px;margin-top:8px}
-    .card ul li{font-size:15px;color:#3a3a3c;line-height:1.75;margin-bottom:4px}
-    .card a{color:#007aff;text-decoration:none}
-    .divider{border:none;border-top:1px solid #f2f2f7;margin:10px 0}
-    .vi{display:none} .en{display:block}
-    footer{text-align:center;padding:0 24px 40px;font-size:13px;color:#8e8e93}
-    footer a{color:#007aff;text-decoration:none}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #7C3AED;
+      --indigo: #4F46E5;
+      --pink:   #EC4899;
+      --light:  #F5F3FF;
+      --dark:   #111827;
+      --gray:   #6B7280;
+      --border: #E5E7EB;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      background: #fff;
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 18px; color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--purple), var(--indigo));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--gray);
+      text-decoration: none; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--purple); }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: 12px;
+      font-weight: 600; font-size: 14px; text-decoration: none;
+      transition: all .2s; cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple), var(--indigo));
+      color: #fff;
+    }
+    .btn-primary:hover { opacity: .9; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(124,58,237,.35); }
+    .btn-outline {
+      border: 2px solid var(--border); color: var(--dark); background: #fff;
+    }
+    .btn-outline:hover { border-color: var(--purple); color: var(--purple); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #F5F3FF 0%, #EEF2FF 50%, #fff 100%);
+      display: flex; align-items: center;
+      padding: 120px 24px 80px;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--light); color: var(--purple);
+      padding: 6px 14px; border-radius: 999px;
+      font-size: 13px; font-weight: 600; margin-bottom: 24px;
+      border: 1px solid rgba(124,58,237,.2);
+    }
+    .hero-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 900; line-height: 1.1;
+      letter-spacing: -1.5px; margin-bottom: 20px;
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 18px; color: var(--gray);
+      line-height: 1.7; margin-bottom: 36px; max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 48px;
+      padding-top: 32px; border-top: 1px solid var(--border);
+    }
+    .hero-stat-num {
+      font-size: 28px; font-weight: 800;
+      background: linear-gradient(135deg, var(--purple), var(--indigo));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-stat-label { font-size: 13px; color: var(--gray); }
+
+    /* Phone mockup */
+    .hero-visual { display: flex; justify-content: center; align-items: center; position: relative; }
+    .phone-wrap {
+      width: 260px; position: relative;
+      filter: drop-shadow(0 40px 80px rgba(124,58,237,.25));
+    }
+    .phone-frame {
+      background: var(--dark); border-radius: 44px;
+      padding: 12px; border: 3px solid #374151;
+      position: relative;
+    }
+    .phone-screen {
+      background: linear-gradient(160deg, #F5F3FF, #EEF2FF);
+      border-radius: 34px; overflow: hidden;
+      aspect-ratio: 9/19.5; padding: 20px 16px;
+    }
+    .phone-status { display: flex; justify-content: space-between; margin-bottom: 16px; }
+    .phone-status-time { font-size: 13px; font-weight: 700; color: var(--dark); }
+    .phone-header { margin-bottom: 20px; }
+    .phone-header-title { font-size: 11px; color: var(--gray); }
+    .phone-header-date { font-size: 18px; font-weight: 800; color: var(--dark); }
+    .phone-card {
+      background: #fff; border-radius: 14px;
+      padding: 12px 14px; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .phone-card-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .phone-card-name { font-size: 12px; font-weight: 700; color: var(--dark); }
+    .phone-card-dose { font-size: 10px; color: var(--gray); }
+    .phone-card-check {
+      margin-left: auto; width: 22px; height: 22px;
+      border-radius: 999px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+    }
+    .check-done { background: #D1FAE5; color: #059669; }
+    .check-pending { background: var(--light); color: var(--purple); border: 1.5px solid var(--purple); }
+
+    /* Floating badges */
+    .float-badge {
+      position: absolute; background: #fff;
+      border-radius: 16px; padding: 10px 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.12);
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; white-space: nowrap;
+    }
+    .float-1 { top: 60px; right: -30px; }
+    .float-2 { bottom: 80px; left: -40px; }
+    .float-dot { width: 8px; height: 8px; border-radius: 999px; }
+
+    /* ─── STORY ─── */
+    .story {
+      padding: 100px 24px;
+      background: var(--dark);
+      color: #fff;
+    }
+    .story-inner {
+      max-width: 900px; margin: 0 auto; text-align: center;
+    }
+    .story-eyebrow {
+      font-size: 13px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+    .story-title {
+      font-size: clamp(28px, 4vw, 44px); font-weight: 800;
+      line-height: 1.2; margin-bottom: 32px; letter-spacing: -1px;
+    }
+    .story-quote {
+      font-size: 20px; font-style: italic;
+      color: rgba(255,255,255,.7); line-height: 1.8;
+      border-left: 3px solid var(--purple);
+      padding-left: 24px; text-align: left;
+      max-width: 680px; margin: 0 auto 40px;
+    }
+    .story-body {
+      font-size: 17px; color: rgba(255,255,255,.65);
+      line-height: 1.9; max-width: 700px; margin: 0 auto;
+    }
+    .story-body p + p { margin-top: 20px; }
+    .story-highlight {
+      color: #fff; font-weight: 600;
+      text-decoration: underline; text-decoration-color: var(--purple);
+      text-underline-offset: 4px;
+    }
+    .story-heart {
+      font-size: 48px; margin-bottom: 24px; display: block;
+    }
+
+    /* ─── FEATURES ─── */
+    .features {
+      padding: 100px 24px;
+      background: #FAFAFA;
+    }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-eyebrow {
+      font-size: 13px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--purple); margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px); font-weight: 800;
+      line-height: 1.2; letter-spacing: -1px;
+    }
+    .section-sub { font-size: 17px; color: var(--gray); margin-top: 12px; }
+
+    .features-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .feature-card {
+      background: #fff; border-radius: 20px;
+      padding: 32px 28px;
+      border: 1px solid var(--border);
+      transition: all .25s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(124,58,237,.12);
+      border-color: rgba(124,58,237,.2);
+    }
+    .feature-icon {
+      width: 52px; height: 52px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; margin-bottom: 20px;
+    }
+    .feature-title { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+    .feature-desc { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+    /* ─── PRIVACY SECTION ─── */
+    .privacy-section {
+      padding: 100px 24px;
+      background: #fff;
+    }
+    .privacy-inner { max-width: 800px; margin: 0 auto; }
+    .privacy-inner h2 {
+      font-size: 32px; font-weight: 800;
+      margin-bottom: 8px; letter-spacing: -0.5px;
+    }
+    .privacy-date { font-size: 14px; color: var(--gray); margin-bottom: 40px; }
+    .privacy-block { margin-bottom: 36px; }
+    .privacy-block h3 {
+      font-size: 18px; font-weight: 700;
+      color: var(--purple); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .privacy-block p, .privacy-block li {
+      font-size: 15px; color: #374151; line-height: 1.8;
+    }
+    .privacy-block ul { padding-left: 20px; }
+    .privacy-block li { margin-bottom: 4px; }
+    .privacy-highlight {
+      background: var(--light); border-radius: 12px;
+      padding: 16px 20px; margin-top: 12px;
+      font-size: 14px; color: var(--purple); font-weight: 500;
+    }
+
+    /* ─── CTA ─── */
+    .cta {
+      padding: 100px 24px;
+      background: linear-gradient(135deg, var(--purple), var(--indigo));
+      text-align: center; color: #fff;
+    }
+    .cta-title {
+      font-size: clamp(28px, 4vw, 48px); font-weight: 900;
+      margin-bottom: 16px; letter-spacing: -1px;
+    }
+    .cta-sub { font-size: 18px; opacity: .8; margin-bottom: 36px; }
+    .btn-white {
+      background: #fff; color: var(--purple);
+      font-weight: 700; padding: 14px 28px; border-radius: 14px;
+      text-decoration: none; display: inline-flex;
+      align-items: center; gap: 8px; font-size: 16px;
+      transition: all .2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.2); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,.5);
+      padding: 40px 24px; text-align: center; font-size: 14px;
+    }
+    footer a { color: rgba(255,255,255,.7); text-decoration: none; }
+    footer a:hover { color: #fff; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-links { display: flex; justify-content: center; gap: 32px; margin-bottom: 20px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero-stats { gap: 20px; }
+      .float-1, .float-2 { display: none; }
+    }
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
   </style>
 </head>
 <body>
-<div class="hero">
-  <h1>💊 Dose Diary</h1>
-  <p>Privacy Policy / Chính Sách Bảo Mật</p>
-  <div class="badge">Last updated: April 26, 2026</div>
-  <div class="lang-toggle">
-    <button class="active" onclick="setLang('en')">English</button>
-    <button onclick="setLang('vi')">Tiếng Việt</button>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">💊</div>
+      Dose Diary
+    </a>
+    <div class="nav-links">
+      <a href="#story">Our Story</a>
+      <a href="#features">Features</a>
+      <a href="#privacy">Privacy</a>
+      <a href="https://apps.apple.com/app/id6763815560" class="btn btn-primary">
+        ⬇ Download Free
+      </a>
+    </div>
   </div>
-</div>
+</nav>
 
-<div class="container">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">💜 Made with love for patients & caregivers</div>
+      <h1 class="hero-title">
+        Never miss<br/>a dose, <span>ever again.</span>
+      </h1>
+      <p class="hero-sub">
+        Dose Diary is a smart medication tracker built for people managing complex, long-term treatment schedules — reminders, adherence tracking, HRT reference, and more.
+      </p>
+      <div class="hero-actions">
+        <a href="https://apps.apple.com/app/id6763815560" class="btn btn-primary">
+          🍎 &nbsp;Download on App Store
+        </a>
+        <a href="#story" class="btn btn-outline">Our Story →</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">Free</div>
+          <div class="hero-stat-label">Forever for core features</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">100%</div>
+          <div class="hero-stat-label">Private — data stays on device</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">EN/VI</div>
+          <div class="hero-stat-label">Bilingual support</div>
+        </div>
+      </div>
+    </div>
 
-  <div class="card">
-    <h2>1. Introduction</h2>
-    <p class="en">Dose Diary ("we", "our", or "the app") is a medication tracking application designed to help users manage their medication schedules. This Privacy Policy explains how we handle your information.</p>
-    <p class="vi">Dose Diary ("chúng tôi" hoặc "ứng dụng") là ứng dụng theo dõi lịch uống thuốc được thiết kế để giúp người dùng quản lý lịch dùng thuốc của mình.</p>
+    <!-- Phone mockup -->
+    <div class="hero-visual">
+      <div class="phone-wrap">
+        <!-- Floating badges -->
+        <div class="float-badge float-1">
+          <div class="float-dot" style="background:#059669"></div>
+          Estradiol ✓ taken
+        </div>
+        <div class="float-badge float-2">
+          ⏰ &nbsp;Reminder set for 8 PM
+        </div>
+
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-status">
+              <span class="phone-status-time">9:41</span>
+              <span style="font-size:11px">●●●</span>
+            </div>
+            <div class="phone-header">
+              <div class="phone-header-title">Today's Schedule</div>
+              <div class="phone-header-date">Friday, May 2</div>
+            </div>
+            <!-- Cards -->
+            <div class="phone-card">
+              <div class="phone-card-icon" style="background:#EDE9FE">💊</div>
+              <div>
+                <div class="phone-card-name">Estradiol</div>
+                <div class="phone-card-dose">2mg · 8:00 AM</div>
+              </div>
+              <div class="phone-card-check check-done">✓</div>
+            </div>
+            <div class="phone-card">
+              <div class="phone-card-icon" style="background:#FEF3C7">💉</div>
+              <div>
+                <div class="phone-card-name">Tacrolimus</div>
+                <div class="phone-card-dose">1mg · 12:00 PM</div>
+              </div>
+              <div class="phone-card-check check-pending">○</div>
+            </div>
+            <div class="phone-card">
+              <div class="phone-card-icon" style="background:#D1FAE5">🫧</div>
+              <div>
+                <div class="phone-card-name">Mycophenolate</div>
+                <div class="phone-card-dose">500mg · 8:00 PM</div>
+              </div>
+              <div class="phone-card-check check-pending">○</div>
+            </div>
+            <!-- Progress bar -->
+            <div style="margin-top:14px; background:#E9D5FF; border-radius:8px; height:6px; overflow:hidden;">
+              <div style="width:33%; height:100%; background:linear-gradient(90deg,#7C3AED,#4F46E5); border-radius:8px;"></div>
+            </div>
+            <div style="font-size:10px; color:#7C3AED; margin-top:6px; font-weight:600;">1 of 3 doses taken today</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="story-inner">
+    <div class="story-eyebrow">The Story Behind Dose Diary</div>
+    <span class="story-heart">💜</span>
+    <h2 class="story-title">Built for someone I love.</h2>
+
+    <blockquote class="story-quote">
+      "My wife was diagnosed with a kidney condition that required a complex, lifelong medication regimen. I needed a simple, reliable way to make sure she never missed a dose."
+    </blockquote>
+
+    <div class="story-body">
+      <p>
+        Dose Diary started as a <span class="story-highlight">personal project</span> — not a startup, not a product roadmap. I built it because my wife, a kidney patient, was managing multiple medications on a strict schedule that changed frequently based on her treatment progress.
+      </p>
+      <p>
+        Existing apps were either too simple to handle complex intervals, or too complicated to use daily. So I built exactly what she needed: a quiet, reliable companion that remembers her schedule so she doesn't have to.
+      </p>
+      <p>
+        Over time, the app grew to support others too — people on HRT, long-term illness survivors, anyone whose health journey requires precision and consistency. But at its heart, <span class="story-highlight">Dose Diary is still a love letter</span> — to every patient and every caregiver who refuses to let illness win.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-header">
+    <div class="section-eyebrow">Features</div>
+    <h2 class="section-title">Everything you need to stay on track</h2>
+    <p class="section-sub">Designed for real patients with real complexity.</p>
   </div>
 
-  <div class="card">
-    <h2>2. Information We Collect</h2>
-    <p class="en">Dose Diary stores all data locally on your device only. We do not collect, transmit, or store any personal health information on external servers.</p>
-    <p class="vi">Dose Diary lưu trữ toàn bộ dữ liệu trực tiếp trên thiết bị của bạn. Chúng tôi không thu thập, truyền tải hay lưu trữ bất kỳ thông tin sức khỏe cá nhân nào trên máy chủ bên ngoài.</p>
-    <p class="en" style="margin-top:8px;font-weight:600">Data stored locally on your device includes:</p>
-    <p class="vi" style="margin-top:8px;font-weight:600">Dữ liệu được lưu trữ cục bộ bao gồm:</p>
-    <ul>
-      <li class="en">Medication names and dosage information you enter</li>
-      <li class="vi">Tên thuốc và thông tin liều lượng bạn nhập vào</li>
-      <li class="en">Medication schedules and reminders you create</li>
-      <li class="vi">Lịch dùng thuốc và nhắc nhở bạn tạo</li>
-      <li class="en">Dose logs and adherence history</li>
-      <li class="vi">Lịch sử ghi nhận liều và mức độ tuân thủ</li>
-    </ul>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#EDE9FE">📅</div>
+      <div class="feature-title">Flexible Scheduling</div>
+      <div class="feature-desc">Daily, weekly, every 2 weeks, every 3 weeks — handle any regimen your doctor prescribes, not just simple daily reminders.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#D1FAE5">✅</div>
+      <div class="feature-title">One-tap Logging</div>
+      <div class="feature-desc">Mark medications as taken with a single tap. Track history with timestamps so you always know exactly when each dose was taken.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#FEF3C7">🔔</div>
+      <div class="feature-title">Smart Reminders</div>
+      <div class="feature-desc">Customizable notifications timed to your dose schedule. Before meal, after meal — the reminder fits your routine.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#FCE7F3">📊</div>
+      <div class="feature-title">Adherence Analytics</div>
+      <div class="feature-desc">See your weekly and monthly adherence at a glance. Understand your patterns and stay consistent with your treatment plan.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#E0F2FE">📚</div>
+      <div class="feature-title">HRT Reference Library</div>
+      <div class="feature-desc">A comprehensive, medically-cited reference for hormone therapy medications — dosages, timing, and clinical context from trusted sources.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#F3F4F6">📱</div>
+      <div class="feature-title">Home Screen Widget</div>
+      <div class="feature-desc">See today's pending medications at a glance — right on your home screen, no need to open the app.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#EDE9FE">🔒</div>
+      <div class="feature-title">100% Private</div>
+      <div class="feature-desc">Your health data stays on your device. No account required, no cloud sync, no data sold. Your medical history belongs to you.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#D1FAE5">🌐</div>
+      <div class="feature-title">Bilingual (EN / VI)</div>
+      <div class="feature-desc">Full support for English and Vietnamese. Switch languages instantly in Settings to use the app in your preferred language.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#FEF9C3">⭐</div>
+      <div class="feature-title">Free Forever</div>
+      <div class="feature-desc">Core features are completely free. No paywalls, no subscriptions required to track your medications and stay healthy.</div>
+    </div>
   </div>
+</section>
 
-  <div class="card">
-    <h2>3. Third-Party Advertising</h2>
-    <p class="en">Dose Diary uses Google AdMob to display advertisements. Google AdMob may collect and use data to serve personalized ads, including:</p>
-    <p class="vi">Dose Diary sử dụng Google AdMob để hiển thị quảng cáo. Google AdMob có thể thu thập và sử dụng dữ liệu để phục vụ quảng cáo được cá nhân hóa, bao gồm:</p>
-    <ul>
-      <li class="en">Advertising identifiers (IDFA)</li>
-      <li class="vi">Mã định danh quảng cáo (IDFA)</li>
-      <li class="en">Device information</li>
-      <li class="vi">Thông tin thiết bị</li>
-      <li class="en">Usage data</li>
-      <li class="vi">Dữ liệu sử dụng</li>
-    </ul>
-    <p class="en" style="margin-top:12px">For more information: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a></p>
-    <p class="vi" style="margin-top:12px">Xem thêm: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a></p>
-    <p class="en">You can opt out of personalized advertising in <em>Settings → Privacy → Tracking</em>.</p>
-    <p class="vi">Bạn có thể từ chối quảng cáo cá nhân hóa tại <em>Cài đặt → Quyền riêng tư → Theo dõi</em>.</p>
+<!-- PRIVACY -->
+<section class="privacy-section" id="privacy">
+  <div class="privacy-inner">
+    <div class="section-eyebrow" style="text-align:left; margin-bottom:8px">Privacy Policy</div>
+    <h2>We take your privacy seriously.</h2>
+    <p class="privacy-date">Last updated: May 2026 &nbsp;·&nbsp; Contact: <a href="mailto:jay.tran@kreebox.com" style="color:var(--purple)">jay.tran@kreebox.com</a></p>
+
+    <div class="privacy-block">
+      <h3>🔒 Data stays on your device</h3>
+      <p>Dose Diary stores all your medication data locally on your device using Apple's SwiftData framework. We do not collect, transmit, or store any personal health information on external servers.</p>
+      <div class="privacy-highlight">Your medication history, schedules, and logs are stored only on your iPhone and are never sent to us or any third party.</div>
+    </div>
+
+    <div class="privacy-block">
+      <h3>📊 Analytics & Advertising</h3>
+      <p>To keep the app free, we display ads via Google AdMob. AdMob may collect limited, anonymized data to serve relevant ads. You will be asked for your tracking preference when you first open the app via Apple's App Tracking Transparency prompt.</p>
+      <ul style="margin-top:12px">
+        <li>Advertising data (ad interactions) — used to serve ads</li>
+        <li>Crash data — used to improve app stability</li>
+        <li>Product interaction — used to improve app experience</li>
+      </ul>
+    </div>
+
+    <div class="privacy-block">
+      <h3>🔔 Notifications</h3>
+      <p>If you grant notification permission, Dose Diary schedules local reminders on your device. These notifications are processed entirely on-device — no data is sent to our servers.</p>
+    </div>
+
+    <div class="privacy-block">
+      <h3>👶 Children's Privacy</h3>
+      <p>Dose Diary is not directed at children under 13. We do not knowingly collect personal information from children.</p>
+    </div>
+
+    <div class="privacy-block">
+      <h3>✉️ Contact Us</h3>
+      <p>If you have any questions about this privacy policy, please contact us at <a href="mailto:jay.tran@kreebox.com" style="color:var(--purple)">jay.tran@kreebox.com</a></p>
+    </div>
   </div>
+</section>
 
-  <div class="card">
-    <h2>4. Notifications</h2>
-    <p class="en">If you enable medication reminders, the app uses Apple's local notification system. These notifications are processed entirely on your device and no notification data is sent to external servers.</p>
-    <p class="vi">Nếu bạn bật nhắc nhở uống thuốc, ứng dụng sử dụng hệ thống thông báo cục bộ của Apple. Các thông báo được xử lý hoàn toàn trên thiết bị của bạn và không có dữ liệu nào được gửi đến máy chủ bên ngoài.</p>
-  </div>
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-title">Start tracking today.<br/>It's free.</div>
+  <p class="cta-sub">Join thousands of patients and caregivers who rely on Dose Diary every day.</p>
+  <a href="https://apps.apple.com/app/id6763815560" class="btn-white">
+    🍎 &nbsp; Download on App Store
+  </a>
+</section>
 
-  <div class="card">
-    <h2>5. Data Security</h2>
-    <p class="en">All health data you enter is stored exclusively on your device using Apple's SwiftData framework. We do not have access to this data. If you delete the app, all locally stored data will be permanently removed.</p>
-    <p class="vi">Toàn bộ dữ liệu sức khỏe bạn nhập được lưu trữ độc quyền trên thiết bị của bạn thông qua framework SwiftData của Apple. Chúng tôi không có quyền truy cập vào dữ liệu này. Nếu bạn xóa ứng dụng, toàn bộ dữ liệu cục bộ sẽ bị xóa vĩnh viễn.</p>
-  </div>
-
-  <div class="card">
-    <h2>6. Children's Privacy</h2>
-    <p class="en">Dose Diary is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13.</p>
-    <p class="vi">Dose Diary không dành cho trẻ em dưới 13 tuổi. Chúng tôi không cố ý thu thập thông tin cá nhân từ trẻ em dưới 13 tuổi.</p>
-  </div>
-
-  <div class="card">
-    <h2>7. Changes to This Policy</h2>
-    <p class="en">We may update this Privacy Policy from time to time. We will notify you of any changes by updating the "Last updated" date at the top of this page.</p>
-    <p class="vi">Chúng tôi có thể cập nhật Chính Sách Bảo Mật này theo thời gian. Chúng tôi sẽ thông báo về bất kỳ thay đổi nào bằng cách cập nhật ngày "Cập nhật lần cuối" ở đầu trang này.</p>
-  </div>
-
-  <div class="card">
-    <h2>8. Contact Us</h2>
-    <p class="en">If you have any questions about this Privacy Policy, please contact us at:<br><a href="mailto:jay.tran@kreebox.com">jay.tran@kreebox.com</a></p>
-    <p class="vi">Nếu bạn có bất kỳ câu hỏi nào về Chính Sách Bảo Mật này, vui lòng liên hệ:<br><a href="mailto:jay.tran@kreebox.com">jay.tran@kreebox.com</a></p>
-    <p class="en" style="margin-top:12px;color:#8e8e93;font-size:14px">This app was developed by Phuong Tran.</p>
-    <p class="vi" style="margin-top:12px;color:#8e8e93;font-size:14px">Ứng dụng này được phát triển bởi Phuong Tran.</p>
-  </div>
-
-</div>
-
+<!-- FOOTER -->
 <footer>
-  © 2026 Dose Diary &nbsp;·&nbsp;
-  <a href="https://jaytran-prog.github.io">jaytran-prog.github.io</a>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="#story">Our Story</a>
+      <a href="#features">Features</a>
+      <a href="#privacy">Privacy Policy</a>
+      <a href="mailto:jay.tran@kreebox.com">Contact</a>
+    </div>
+    <p>© 2026 Dose Diary · Made with 💜 by <a href="mailto:jay.tran@kreebox.com">Phuong Tran</a></p>
+    <p style="margin-top:6px; font-size:12px; opacity:.5">
+      <a href="/app-ads.txt">app-ads.txt</a>
+    </p>
+  </div>
 </footer>
 
-<script>
-function setLang(lang) {
-  document.querySelectorAll('.en').forEach(el => el.style.display = lang==='en' ? 'block' : 'none');
-  document.querySelectorAll('li.en').forEach(el => el.style.display = lang==='en' ? 'list-item' : 'none');
-  document.querySelectorAll('.vi').forEach(el => el.style.display = lang==='vi' ? 'block' : 'none');
-  document.querySelectorAll('li.vi').forEach(el => el.style.display = lang==='vi' ? 'list-item' : 'none');
-  document.querySelectorAll('.lang-toggle button').forEach((btn,i) => {
-    btn.classList.toggle('active', (lang==='en' && i===0) || (lang==='vi' && i===1));
-  });
-}
-</script>
 </body>
 </html>
