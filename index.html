@@ -3,401 +3,453 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dose Diary — Smart Medication Tracker</title>
+  <title>Dose Diary — Medication Tracker</title>
   <meta name="description" content="A personal medication tracker built with love for patients and caregivers managing complex treatment schedules."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="/icon.png"/>
+  <link rel="apple-touch-icon" href="/icon.png"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --purple: #7C3AED; --indigo: #4F46E5; --pink: #EC4899;
-      --light: #F5F3FF; --dark: #111827; --gray: #6B7280; --border: #E5E7EB;
+      --blue:       #0066cc;
+      --blue-dark:  #2997ff;
+      --ink:        #1d1d1f;
+      --ink-60:     #6e6e73;
+      --ink-40:     #86868b;
+      --canvas:     #ffffff;
+      --parchment:  #f5f5f7;
+      --tile-dark:  #1d1d1f;
+      --tile-dark2: #2a2a2c;
+      --hairline:   #d2d2d7;
+      --black:      #000000;
     }
+
     html { scroll-behavior: smooth; overflow-x: hidden; }
-    body { font-family: 'Inter', sans-serif; color: var(--dark); background: #fff; line-height: 1.6; overflow-x: hidden; }
 
-    /* NAV */
-    nav {
-      position: fixed; top: 0; width: 100%; z-index: 100;
-      background: rgba(255,255,255,0.95); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border); padding: 0 20px;
+    body {
+      font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+      color: var(--ink);
+      background: var(--canvas);
+      line-height: 1.47143;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-    .nav-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between; height: 60px;
-    }
-    .nav-logo {
-      display: flex; align-items: center; gap: 9px;
-      font-weight: 700; font-size: 17px; color: var(--dark); text-decoration: none;
-      flex-shrink: 0;
-    }
-    .nav-right { display: flex; align-items: center; gap: 16px; }
-    .nav-links { display: flex; align-items: center; gap: 24px; }
-    .nav-links a {
-      font-size: 14px; font-weight: 500; color: var(--gray);
-      text-decoration: none; transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--purple); }
 
-    /* Language Toggle */
-    .lang-toggle {
-      display: flex; background: var(--light); border-radius: 10px;
-      padding: 3px; gap: 2px; border: 1px solid rgba(124,58,237,.15);
-      flex-shrink: 0;
+    /* ─── GLOBAL NAV ─── */
+    .global-nav {
+      position: fixed; top: 0; width: 100%; z-index: 200;
+      height: 44px;
+      background: rgba(0,0,0,.8);
+      backdrop-filter: saturate(180%) blur(20px);
+      display: flex; align-items: center;
     }
+    .gnav-inner {
+      width: 100%; max-width: 980px; margin: 0 auto; padding: 0 22px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .gnav-logo svg { display: block; fill: #fff; width: 18px; height: 22px; }
+    .gnav-links { display: flex; align-items: center; gap: 0; }
+    .gnav-links a {
+      font-size: 12px; font-weight: 400; color: rgba(255,255,255,.8);
+      text-decoration: none; padding: 0 10px; letter-spacing: -.12px;
+      transition: color .15s; white-space: nowrap;
+    }
+    .gnav-links a:hover { color: #fff; }
+    .gnav-right { display: flex; align-items: center; gap: 18px; }
+    .lang-toggle { display: flex; gap: 0; }
     .lang-btn {
-      padding: 5px 10px; border-radius: 7px; border: none;
-      font-size: 11px; font-weight: 700; cursor: pointer;
-      transition: all .2s; background: transparent; color: var(--gray);
-      min-height: 30px;
+      background: transparent; border: none; cursor: pointer;
+      font-size: 12px; font-weight: 400; color: rgba(255,255,255,.6);
+      padding: 0 8px; letter-spacing: -.12px; transition: color .15s;
     }
-    .lang-btn.active { background: var(--purple); color: #fff; }
+    .lang-btn + .lang-btn { border-left: 1px solid rgba(255,255,255,.2); }
+    .lang-btn.active { color: #fff; font-weight: 600; }
+    .gnav-cta {
+      font-size: 12px; color: var(--blue-dark); text-decoration: none;
+      letter-spacing: -.12px; white-space: nowrap;
+    }
+    .gnav-cta:hover { text-decoration: underline; }
 
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 10px 20px; border-radius: 12px;
-      font-weight: 600; font-size: 14px; text-decoration: none;
-      transition: all .2s; cursor: pointer; border: none;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--purple), var(--indigo)); color: #fff;
-    }
-    .btn-primary:hover { opacity:.9; transform:translateY(-1px); box-shadow: 0 8px 24px rgba(124,58,237,.35); }
-    .btn-nav {
-      font-size: 13px; padding: 8px 14px; border-radius: 10px; white-space: nowrap;
-    }
+    /* ─── SECTION BASE ─── */
+    section { width: 100%; }
 
-    /* HERO */
+    /* ─── HERO ─── */
     .hero {
-      min-height: 100vh;
-      background: linear-gradient(160deg, #F5F3FF 0%, #EEF2FF 50%, #fff 100%);
-      display: flex; align-items: center; padding: 100px 20px 64px;
+      padding-top: 44px;
+      background: var(--black);
+      text-align: center;
+      overflow: hidden;
     }
-    .hero-inner {
-      max-width: 1100px; margin: 0 auto; width: 100%;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--light); color: var(--purple);
-      padding: 6px 14px; border-radius: 999px;
-      font-size: 13px; font-weight: 600; margin-bottom: 20px;
-      border: 1px solid rgba(124,58,237,.2);
+    .hero-text { padding: 80px 22px 0; }
+    .hero-kicker {
+      font-size: 19px; font-weight: 600; color: #f5f5f7;
+      letter-spacing: .009em; margin-bottom: 6px;
     }
     .hero-title {
-      font-size: clamp(30px, 5vw, 54px); font-weight: 900;
-      line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 18px;
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 600; line-height: 1.05;
+      letter-spacing: -.015em;
+      color: #fff;
+      margin-bottom: 20px;
     }
-    .hero-title span {
-      background: linear-gradient(135deg, var(--purple), var(--pink));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    .hero-sub {
+      font-size: 21px; font-weight: 400; color: #a1a1a6;
+      line-height: 1.38; letter-spacing: .011em;
+      max-width: 540px; margin: 0 auto 28px;
     }
-    .hero-sub { font-size: 16px; color: var(--gray); line-height: 1.8; margin-bottom: 32px; max-width: 480px; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    .hero-stats {
-      display: flex; gap: 28px; margin-top: 40px;
-      padding-top: 28px; border-top: 1px solid var(--border);
-      flex-wrap: wrap;
+    .hero-actions {
+      display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;
+      margin-bottom: 48px;
     }
-    .hero-stat-num {
-      font-size: 24px; font-weight: 800;
-      background: linear-gradient(135deg, var(--purple), var(--indigo));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    .btn-blue {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 12px 22px; background: var(--blue-dark); color: #fff;
+      border-radius: 980px; font-size: 17px; font-weight: 400;
+      text-decoration: none; letter-spacing: -.374px;
+      transition: background .2s;
     }
-    .hero-stat-label { font-size: 12px; color: var(--gray); }
+    .btn-blue:hover { background: #1aabff; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 17px; font-weight: 400; color: var(--blue-dark);
+      text-decoration: none; letter-spacing: -.374px; padding: 12px 0;
+    }
+    .btn-ghost:hover { text-decoration: underline; }
 
-    /* Phone */
-    .hero-visual { display: flex; justify-content: center; position: relative; }
-    .phone-wrap { width: 255px; filter: drop-shadow(0 40px 80px rgba(124,58,237,.25)); }
+    .hero-phone-wrap {
+      position: relative;
+      display: flex; justify-content: center;
+      padding: 0 22px;
+    }
+    .hero-phone {
+      width: 270px;
+      filter: drop-shadow(0 50px 100px rgba(0,0,0,.5));
+      position: relative; z-index: 1;
+    }
     .phone-frame {
-      background: var(--dark); border-radius: 44px;
-      padding: 12px; border: 3px solid #374151;
+      background: #111; border-radius: 54px;
+      padding: 14px; border: 2px solid #333;
     }
     .phone-screen {
-      background: linear-gradient(160deg, #F5F3FF, #EEF2FF);
-      border-radius: 34px; overflow: hidden; aspect-ratio: 9/19.5; padding: 18px 14px;
+      background: #f5f5f7; border-radius: 42px; overflow: hidden;
+      aspect-ratio: 9/19.5; padding: 20px 16px;
     }
-    .phone-status { display: flex; justify-content: space-between; margin-bottom: 14px; }
-    .phone-status-time { font-size: 13px; font-weight: 700; }
-    .phone-hdr-label { font-size: 10px; color: var(--gray); }
-    .phone-hdr-date { font-size: 17px; font-weight: 800; color: var(--dark); margin-bottom: 14px; }
-    .phone-card {
+    .ps-status { display: flex; justify-content: space-between; margin-bottom: 16px; }
+    .ps-time { font-size: 14px; font-weight: 700; color: #1d1d1f; }
+    .ps-label { font-size: 10px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: #86868b; margin-bottom: 3px; }
+    .ps-date { font-size: 18px; font-weight: 700; color: #1d1d1f; margin-bottom: 16px; letter-spacing: -.4px; }
+    .ps-med {
       background: #fff; border-radius: 12px; padding: 10px 12px;
-      margin-bottom: 7px; display: flex; align-items: center; gap: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,.06);
+      margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
     }
-    .p-icon { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink:0; }
-    .p-name { font-size: 11px; font-weight: 700; }
-    .p-dose { font-size: 9px; color: var(--gray); }
-    .p-check { margin-left: auto; width: 20px; height: 20px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink:0; }
-    .done { background: #D1FAE5; color: #059669; }
-    .pending { background: #EDE9FE; color: var(--purple); font-size: 8px; }
-    .float-badge {
-      position: absolute; background: #fff; border-radius: 14px;
-      padding: 9px 14px; box-shadow: 0 8px 28px rgba(0,0,0,.12);
-      display: flex; align-items: center; gap: 7px;
-      font-size: 12px; font-weight: 600; white-space: nowrap;
-    }
-    .f1 { top: 50px; right: -20px; }
-    .f2 { bottom: 70px; left: -35px; }
-    .fdot { width: 8px; height: 8px; border-radius: 999px; }
+    .ps-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .ps-name { font-size: 11px; font-weight: 600; color: #1d1d1f; }
+    .ps-dose { font-size: 9px; color: #86868b; }
+    .ps-check { margin-left: auto; font-size: 10px; font-weight: 600; flex-shrink: 0; }
+    .ps-done { color: #34c759; }
+    .ps-pend { color: #c7c7cc; }
+    .ps-progress { margin-top: 14px; }
+    .ps-prog-bar { background: #e5e5ea; border-radius: 2px; height: 3px; }
+    .ps-prog-fill { width: 33%; height: 100%; background: #0066cc; border-radius: 2px; }
+    .ps-prog-label { font-size: 9px; color: #86868b; margin-top: 5px; font-weight: 500; }
 
-    /* STORY */
-    .story { padding: 80px 20px; background: var(--dark); color: #fff; }
-    .story-inner { max-width: 900px; margin: 0 auto; text-align: center; }
-    .story-eyebrow {
-      font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
-      text-transform: uppercase; margin-bottom: 16px;
-      background: linear-gradient(135deg, #A78BFA, var(--pink));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    .hero-glow {
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse at center bottom, rgba(41,151,255,.15) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .story-emoji { font-size: 48px; display: block; margin-bottom: 16px; }
-    .story-title { font-size: clamp(22px, 4vw, 42px); font-weight: 800; line-height: 1.2; margin-bottom: 32px; letter-spacing: -1px; }
-    .story-cards {
+
+    /* ─── TILES ─── */
+
+    /* Story — parchment */
+    .tile-story {
+      background: var(--parchment);
+      padding: 100px 22px;
+      text-align: center;
+    }
+    .tile-inner { max-width: 980px; margin: 0 auto; }
+    .tile-kicker {
+      font-size: 17px; font-weight: 600; color: #1d1d1f;
+      letter-spacing: -.374px; margin-bottom: 6px;
+    }
+    .tile-title {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 600; line-height: 1.07;
+      letter-spacing: -.015em; color: #1d1d1f;
+      margin-bottom: 16px;
+    }
+    .tile-sub {
+      font-size: 19px; font-weight: 400; color: var(--ink-60);
+      line-height: 1.42; letter-spacing: .012em;
+      max-width: 560px; margin: 0 auto 48px;
+    }
+    .tile-link {
+      font-size: 19px; color: var(--blue); text-decoration: none;
+      letter-spacing: .012em;
+    }
+    .tile-link:hover { text-decoration: underline; }
+    .tile-link-arr { font-size: 19px; color: var(--blue); }
+
+    .story-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 16px; margin-bottom: 40px;
+      gap: 1px; background: var(--hairline);
+      border: 1px solid var(--hairline); border-radius: 18px; overflow: hidden;
+      margin-top: 56px; text-align: left;
     }
-    .story-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 16px; padding: 22px 18px; text-align: left;
+    .story-ch {
+      background: var(--parchment); padding: 40px 32px 44px;
     }
-    .story-card-icon { font-size: 26px; margin-bottom: 12px; display: block; }
-    .story-card-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: #fff; }
-    .story-card-desc { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.7; }
-    .story-body {
-      font-size: 15px; color: rgba(255,255,255,.65);
-      line-height: 1.9; max-width: 700px; margin: 0 auto;
+    .ch-num {
+      font-size: 12px; font-weight: 400; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink-40); margin-bottom: 14px;
+    }
+    .ch-title {
+      font-size: 19px; font-weight: 600; line-height: 1.21;
+      letter-spacing: .011em; color: #1d1d1f; margin-bottom: 10px;
+    }
+    .ch-body {
+      font-size: 14px; font-weight: 400; color: var(--ink-60);
+      line-height: 1.57; letter-spacing: -.016em;
+    }
+
+    .story-prose {
+      margin-top: 56px; padding-top: 48px;
+      border-top: 1px solid var(--hairline);
+      max-width: 640px; margin-left: auto; margin-right: auto;
       text-align: left;
     }
-    .story-body p + p { margin-top: 16px; }
-    .hl { color: #fff; font-weight: 600; text-decoration: underline; text-decoration-color: var(--purple); text-underline-offset: 4px; }
-
-    /* FEATURES */
-    .features { padding: 80px 20px; background: #FAFAFA; }
-    .section-hdr { text-align: center; margin-bottom: 48px; }
-    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
-    .sec-title { font-size: clamp(22px, 4vw, 38px); font-weight: 800; letter-spacing: -1px; }
-    .sec-sub { font-size: 15px; color: var(--gray); margin-top: 10px; }
-    .feat-grid {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    .story-prose p {
+      font-size: 17px; color: var(--ink-60); line-height: 1.7;
+      letter-spacing: -.374px; margin-bottom: 18px;
     }
-    .feat-card {
-      background: #fff; border-radius: 16px; padding: 24px 20px;
-      border: 1px solid var(--border); transition: all .25s;
+    .story-prose strong { color: var(--ink); font-weight: 500; }
+
+    /* Privacy — dark tile */
+    .tile-privacy {
+      background: var(--tile-dark);
+      padding: 100px 22px;
+      text-align: center;
     }
-    .feat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(124,58,237,.1); border-color: rgba(124,58,237,.2); }
-    .feat-icon { width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 14px; }
-    .feat-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-    .feat-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
+    .tile-privacy .tile-kicker { color: #f5f5f7; }
+    .tile-privacy .tile-title { color: #fff; }
+    .tile-privacy .tile-sub { color: #a1a1a6; }
+    .tile-privacy .tile-link { color: var(--blue-dark); }
+    .tile-privacy .tile-link-arr { color: var(--blue-dark); }
 
-    /* PRIVACY */
-    .privacy-section { padding: 80px 20px; background: #fff; }
-    .privacy-inner { max-width: 780px; margin: 0 auto; }
-    .privacy-inner h2 { font-size: clamp(22px, 4vw, 30px); font-weight: 800; margin-bottom: 6px; letter-spacing: -.5px; }
-    .privacy-date { font-size: 13px; color: var(--gray); margin-bottom: 36px; }
-    .privacy-date a { color: var(--purple); text-decoration: none; }
-    .prv-block { margin-bottom: 28px; }
-    .prv-block h3 { font-size: 16px; font-weight: 700; color: var(--purple); margin-bottom: 10px; }
-    .prv-block p, .prv-block li { font-size: 14px; color: #374151; line-height: 1.8; }
-    .prv-block ul { padding-left: 20px; }
-    .prv-block li { margin-bottom: 4px; }
-    .prv-note { background: var(--light); border-radius: 10px; padding: 14px 18px; margin-top: 10px; font-size: 13px; color: var(--purple); font-weight: 500; }
-
-    /* CTA */
-    .cta { padding: 80px 20px; background: linear-gradient(135deg, var(--purple), var(--indigo)); text-align: center; color: #fff; }
-    .cta-title { font-size: clamp(24px, 4vw, 44px); font-weight: 900; margin-bottom: 14px; letter-spacing: -1px; }
-    .cta-sub { font-size: 16px; opacity:.8; margin-bottom: 28px; }
-    .btn-white {
-      background: #fff; color: var(--purple); font-weight: 700;
-      padding: 14px 28px; border-radius: 14px; text-decoration: none;
-      display: inline-flex; align-items: center; gap: 8px; font-size: 15px;
-      transition: all .2s;
+    .priv-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-top: 56px; text-align: left;
     }
-    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.2); }
-
-    /* FOOTER */
-    footer { background: var(--dark); color: rgba(255,255,255,.5); padding: 36px 20px; text-align: center; font-size: 13px; }
-    footer a { color: rgba(255,255,255,.7); text-decoration: none; }
-    footer a:hover { color: #fff; }
-    .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 14px; flex-wrap: wrap; }
-
-    /* ========================
-       TABLET (max 1024px)
-    ======================== */
-    @media (max-width: 1024px) {
-      .feat-grid { grid-template-columns: repeat(2,1fr); }
-      .story-cards { grid-template-columns: repeat(2,1fr); }
-      .hero-inner { gap: 40px; }
+    .priv-card {
+      background: #2a2a2c; border-radius: 18px; padding: 32px 28px;
+    }
+    .priv-card-title {
+      font-size: 17px; font-weight: 600; color: #fff;
+      letter-spacing: -.374px; margin-bottom: 8px;
+    }
+    .priv-card-body {
+      font-size: 14px; color: #a1a1a6;
+      line-height: 1.57; letter-spacing: -.016em;
+    }
+    .priv-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #3a3a3c; border-radius: 8px;
+      padding: 6px 12px; margin-bottom: 16px;
+      font-size: 12px; font-weight: 500; color: #34c759; letter-spacing: -.08px;
     }
 
-    /* ========================
-       MOBILE (max 768px)
-    ======================== */
+    /* Features row — parchment */
+    .tile-features {
+      background: var(--parchment); padding: 100px 22px;
+    }
+    .feat-section-title {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 600; line-height: 1.08; letter-spacing: -.015em;
+      color: #1d1d1f; text-align: center; margin-bottom: 64px;
+    }
+    .feat-row {
+      max-width: 980px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--hairline);
+      border: 1px solid var(--hairline); border-radius: 18px; overflow: hidden;
+    }
+    .feat-cell {
+      background: var(--parchment); padding: 40px 32px 44px;
+    }
+    .feat-cell-title {
+      font-size: 19px; font-weight: 600; color: #1d1d1f;
+      letter-spacing: .011em; margin-bottom: 10px; line-height: 1.21;
+    }
+    .feat-cell-body {
+      font-size: 14px; color: var(--ink-60);
+      line-height: 1.57; letter-spacing: -.016em;
+    }
+
+    /* HRT Library — dark */
+    .tile-hrt {
+      background: var(--tile-dark2); padding: 100px 22px;
+      text-align: center;
+    }
+    .tile-hrt .tile-kicker { color: #f5f5f7; }
+    .tile-hrt .tile-title { color: #fff; }
+    .tile-hrt .tile-sub { color: #a1a1a6; }
+    .tile-hrt .tile-link { color: var(--blue-dark); }
+
+    .hrt-sources {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 10px; margin-top: 40px;
+    }
+    .source-chip {
+      background: #3a3a3c; border-radius: 980px;
+      padding: 8px 18px; font-size: 14px; color: #ebebf5;
+      font-weight: 400; letter-spacing: -.16px;
+    }
+
+    /* More features — parchment */
+    .tile-more {
+      background: var(--parchment); padding: 100px 22px;
+    }
+    .more-row {
+      max-width: 980px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--hairline);
+      border: 1px solid var(--hairline); border-radius: 18px; overflow: hidden;
+    }
+    .more-cell {
+      background: var(--parchment); padding: 40px 32px 44px;
+    }
+    .more-cell-label {
+      font-size: 12px; font-weight: 400; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink-40); margin-bottom: 12px;
+    }
+    .more-cell-title {
+      font-size: 19px; font-weight: 600; color: #1d1d1f;
+      letter-spacing: .011em; margin-bottom: 10px; line-height: 1.21;
+    }
+    .more-cell-body {
+      font-size: 14px; color: var(--ink-60);
+      line-height: 1.57; letter-spacing: -.016em;
+    }
+
+    /* ─── CTA ─── */
+    .tile-cta {
+      background: var(--parchment); padding: 100px 22px;
+      text-align: center; border-top: 1px solid var(--hairline);
+    }
+    .tile-cta .tile-title { margin-bottom: 8px; }
+    .tile-cta .tile-sub { margin-bottom: 28px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--parchment);
+      border-top: 1px solid var(--hairline);
+      padding: 24px 22px;
+    }
+    .footer-inner { max-width: 980px; margin: 0 auto; }
+    .footer-links {
+      display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+    .footer-links a {
+      font-size: 12px; color: var(--ink-60); text-decoration: none;
+      letter-spacing: -.12px; transition: color .15s;
+    }
+    .footer-links a:hover { color: var(--blue); text-decoration: underline; }
+    .footer-copy {
+      font-size: 12px; color: var(--ink-40); letter-spacing: -.12px;
+    }
+    .footer-copy a { color: var(--ink-40); text-decoration: none; }
+
+    /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
-      /* Nav */
-      .nav-inner { height: 56px; }
-      .nav-links { display: none; }
-      .nav-right { gap: 10px; }
-      .nav-logo { font-size: 16px; gap: 8px; }
-
-      /* Hero */
-      .hero { padding: 84px 20px 56px; min-height: auto; }
-      .hero-inner { grid-template-columns: 1fr; gap: 0; }
-      .hero-visual { display: none; }
-      .hero-badge { font-size: 12px; padding: 5px 12px; margin-bottom: 16px; }
-      .hero-title { font-size: clamp(28px, 8vw, 40px); letter-spacing: -1px; margin-bottom: 14px; }
-      .hero-sub { font-size: 15px; margin-bottom: 24px; max-width: 100%; }
-      .hero-actions { flex-direction: column; gap: 10px; }
-      .hero-actions .btn { width: 100%; justify-content: center; padding: 14px 20px; font-size: 15px; border-radius: 14px; }
-      .hero-stats { gap: 0; margin-top: 32px; padding-top: 24px; justify-content: space-between; }
-      .hero-stats > div { flex: 1; text-align: center; }
-      .hero-stat-num { font-size: 20px; }
-      .hero-stat-label { font-size: 11px; }
-
-      /* Story */
-      .story { padding: 60px 20px; }
-      .story-emoji { font-size: 40px; margin-bottom: 12px; }
-      .story-title { margin-bottom: 24px; }
-      .story-cards { grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
-      .story-card { padding: 18px 16px; }
-      .story-card-icon { font-size: 24px; margin-bottom: 10px; }
-      .story-body { font-size: 14px; line-height: 1.8; text-align: left; }
-
-      /* Features */
-      .features { padding: 60px 20px; }
-      .section-hdr { margin-bottom: 32px; }
-      .feat-grid { grid-template-columns: 1fr; gap: 12px; }
-      .feat-card { padding: 20px 18px; border-radius: 14px; }
-      .feat-card:hover { transform: none; }
-      .feat-icon { width: 42px; height: 42px; margin-bottom: 12px; }
-
-      /* Privacy */
-      .privacy-section { padding: 60px 20px; }
-      .prv-note { font-size: 13px; }
-
-      /* CTA */
-      .cta { padding: 60px 20px; }
-      .cta-sub { font-size: 15px; margin-bottom: 24px; }
-      .btn-white { width: 100%; max-width: 320px; justify-content: center; padding: 16px 24px; }
-
-      /* Footer */
-      footer { padding: 32px 20px; }
-      .footer-links { gap: 16px; font-size: 13px; }
+      .gnav-links { display: none; }
+      .hero-title { font-size: clamp(34px, 9vw, 56px); }
+      .hero-sub { font-size: 17px; }
+      .btn-blue, .btn-ghost { font-size: 15px; }
+      .tile-title { font-size: clamp(28px, 7vw, 44px); }
+      .tile-sub { font-size: 17px; }
+      .story-grid { grid-template-columns: 1fr; }
+      .priv-cards { grid-template-columns: 1fr; }
+      .feat-row { grid-template-columns: 1fr; }
+      .more-row { grid-template-columns: 1fr; }
+      .tile-story, .tile-privacy, .tile-features, .tile-hrt, .tile-more, .tile-cta { padding: 72px 22px; }
     }
 
-    /* ========================
-       SMALL PHONE (max 390px)
-    ======================== */
-    @media (max-width: 390px) {
-      .lang-btn { padding: 5px 8px; font-size: 10px; }
-      .btn-nav { font-size: 12px; padding: 7px 12px; }
-      .hero-title { font-size: 26px; }
-      .hero-stats { gap: 0; }
-      .hero-stat-num { font-size: 18px; }
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; align-items: center; gap: 10px; }
+      .gnav-inner { padding: 0 16px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <img src="/icon.png" style="width:34px;height:34px;border-radius:9px;object-fit:cover;" alt="Dose Diary">
-      Dose Diary
+<!-- GLOBAL NAV -->
+<nav class="global-nav">
+  <div class="gnav-inner">
+    <a href="#" class="gnav-logo" aria-label="Dose Diary">
+      <img src="/icon.png" alt="Dose Diary" style="width:26px;height:26px;border-radius:6px;object-fit:cover;display:block;">
     </a>
-    <div class="nav-right">
-      <div class="nav-links">
-        <a href="#story" data-en="Our Story" data-vi="Câu chuyện">Our Story</a>
-        <a href="#features" data-en="Features" data-vi="Tính năng">Features</a>
-        <a href="#privacy" data-en="Privacy" data-vi="Quyền riêng tư">Privacy</a>
-      </div>
+    <div class="gnav-links">
+      <a href="#story" data-en="Our Story" data-vi="Câu chuyện">Our Story</a>
+      <a href="#features" data-en="Features" data-vi="Tính năng">Features</a>
+      <a href="#privacy" data-en="Privacy" data-vi="Riêng tư">Privacy</a>
+    </div>
+    <div class="gnav-right">
       <div class="lang-toggle">
         <button class="lang-btn active" onclick="setLang('en')">EN</button>
         <button class="lang-btn" onclick="setLang('vi')">VI</button>
       </div>
-      <a href="https://apps.apple.com/app/id6763815560" class="btn btn-primary btn-nav">
-        <span data-en="Download" data-vi="Tải về">Download</span>
-      </a>
+      <a href="https://apps.apple.com/app/id6763815560" class="gnav-cta" data-en="Download ↗" data-vi="Tải về ↗">Download ↗</a>
     </div>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="hero-badge">
-        💜 <span data-en="Made with love · For patients & caregivers" data-vi="Làm bằng tình yêu · Cho bệnh nhân & người chăm sóc">Made with love · For patients & caregivers</span>
-      </div>
-      <h1 class="hero-title">
-        <span data-en="Never miss<br/>a dose, <em>ever again.</em>" data-vi="Không bao giờ<br/>bỏ lỡ một liều thuốc.">Never miss<br/>a dose, <em>ever again.</em></span>
-      </h1>
-      <p class="hero-sub" data-en="A personal medication tracker for people managing complex, long-term treatment schedules — smart reminders, AI health assistant, prescription scanning, stock tracking, and medically-cited HRT reference." data-vi="Ứng dụng theo dõi thuốc cá nhân cho những người có lịch điều trị phức tạp — nhắc nhở thông minh, trợ lý AI sức khỏe, scan đơn thuốc, quản lý tồn kho và thư viện HRT có trích dẫn y khoa.">
-        A personal medication tracker for people managing complex, long-term treatment schedules — smart reminders, AI health assistant, prescription scanning, stock tracking, and medically-cited HRT reference.
-      </p>
-      <div class="hero-actions">
-        <a href="https://apps.apple.com/app/id6763815560" class="btn btn-primary">
-          <span data-en="Download on App Store" data-vi="Tải trên App Store">Download on App Store</span>
-        </a>
-        <a href="#story" class="btn" style="border:2px solid var(--border); color:var(--dark); background:#fff">
-          <span data-en="Our Story →" data-vi="Câu chuyện →">Our Story →</span>
-        </a>
-      </div>
-      <div class="hero-stats">
-        <div>
-          <div class="hero-stat-num">Free</div>
-          <div class="hero-stat-label" data-en="Core features always free" data-vi="Tính năng cơ bản miễn phí">Core features always free</div>
-        </div>
-        <div>
-          <div class="hero-stat-num">100%</div>
-          <div class="hero-stat-label" data-en="Private — data on device" data-vi="Riêng tư — dữ liệu trên máy">Private — data on device</div>
-        </div>
-        <div>
-          <div class="hero-stat-num">EN/VI</div>
-          <div class="hero-stat-label" data-en="Bilingual support" data-vi="Hỗ trợ song ngữ">Bilingual support</div>
-        </div>
-      </div>
+  <div class="hero-text">
+    <p class="hero-kicker" data-en="Dose Diary" data-vi="Dose Diary">Dose Diary</p>
+    <h1 class="hero-title">
+      <span data-en="Never miss a dose." data-vi="Không bao giờ bỏ lỡ một liều.">Never miss a dose.</span>
+    </h1>
+    <p class="hero-sub" data-en="The medication tracker for people with complex, long-term treatment schedules. Free. Private. Always on device." data-vi="Ứng dụng theo dõi thuốc cho người có lịch điều trị phức tạp và dài hạn. Miễn phí. Riêng tư. Luôn trên thiết bị.">The medication tracker for people with complex, long-term treatment schedules. Free. Private. Always on device.</p>
+    <div class="hero-actions">
+      <a href="https://apps.apple.com/app/id6763815560" class="btn-blue">
+        <svg width="15" height="18" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 662.9 0 541.3c0-194.3 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/></svg>
+        <span data-en="Download on App Store" data-vi="Tải trên App Store">Download on App Store</span>
+      </a>
+      <a href="#story" class="btn-ghost" data-en="Learn more ›" data-vi="Tìm hiểu thêm ›">Learn more ›</a>
     </div>
-
-    <!-- Phone mockup -->
-    <div class="hero-visual">
-      <div class="phone-wrap">
-        <div class="float-badge f1">
-          <div class="fdot" style="background:#059669"></div>
-          Estradiol ✓
-        </div>
-        <div class="float-badge f2">
-          ⏰ &nbsp;<span data-en="Reminder: 8 PM" data-vi="Nhắc: 20:00">Reminder: 8 PM</span>
-        </div>
-        <div class="phone-frame">
-          <div class="phone-screen">
-            <div class="phone-status">
-              <span class="phone-status-time">9:41</span>
-              <span style="font-size:10px;color:#9CA3AF">●●●</span>
-            </div>
-            <div class="phone-hdr-label" data-en="Today's Schedule" data-vi="Lịch hôm nay">Today's Schedule</div>
-            <div class="phone-hdr-date" data-en="Friday, May 2" data-vi="Thứ Sáu, 2 Tháng 5">Friday, May 2</div>
-            <div class="phone-card">
-              <div class="p-icon" style="background:#EDE9FE">💊</div>
-              <div><div class="p-name">Estradiol</div><div class="p-dose">2mg · 8:00 AM</div></div>
-              <div class="p-check done">✓</div>
-            </div>
-            <div class="phone-card">
-              <div class="p-icon" style="background:#FEF3C7">💉</div>
-              <div><div class="p-name">Tacrolimus</div><div class="p-dose">1mg · 12:00</div></div>
-              <div class="p-check pending">○</div>
-            </div>
-            <div class="phone-card">
-              <div class="p-icon" style="background:#D1FAE5">🫧</div>
-              <div><div class="p-name">Mycophenolate</div><div class="p-dose">500mg · 20:00</div></div>
-              <div class="p-check pending">○</div>
-            </div>
-            <div style="margin-top:12px; background:#E9D5FF; border-radius:6px; height:5px; overflow:hidden;">
-              <div style="width:33%; height:100%; background:linear-gradient(90deg,#7C3AED,#4F46E5); border-radius:6px;"></div>
-            </div>
-            <div style="font-size:9px; color:#7C3AED; margin-top:5px; font-weight:600;" data-en="1 of 3 doses taken today" data-vi="1/3 liều đã uống hôm nay">1 of 3 doses taken today</div>
+  </div>
+  <div class="hero-phone-wrap">
+    <div class="hero-glow"></div>
+    <div class="hero-phone">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="ps-status">
+            <span class="ps-time">9:41</span>
+            <span style="font-size:10px;color:#c7c7cc">●●●</span>
+          </div>
+          <div class="ps-label" data-en="Today's Schedule" data-vi="Lịch hôm nay">Today's Schedule</div>
+          <div class="ps-date" data-en="Friday, May 2" data-vi="Thứ Sáu, 2/5">Friday, May 2</div>
+          <div class="ps-med">
+            <div class="ps-dot" style="background:#ff3b30"></div>
+            <div><div class="ps-name">Estradiol</div><div class="ps-dose">2mg · 8:00 AM</div></div>
+            <span class="ps-check ps-done">✓</span>
+          </div>
+          <div class="ps-med">
+            <div class="ps-dot" style="background:#ff9500"></div>
+            <div><div class="ps-name">Tacrolimus</div><div class="ps-dose">1mg · 12:00</div></div>
+            <span class="ps-check ps-pend">○</span>
+          </div>
+          <div class="ps-med">
+            <div class="ps-dot" style="background:#007aff"></div>
+            <div><div class="ps-name">Mycophenolate</div><div class="ps-dose">500mg · 20:00</div></div>
+            <span class="ps-check ps-pend">○</span>
+          </div>
+          <div class="ps-progress">
+            <div class="ps-prog-bar"><div class="ps-prog-fill"></div></div>
+            <div class="ps-prog-label" data-en="1 of 3 doses today" data-vi="1/3 liều hôm nay">1 of 3 doses today</div>
           </div>
         </div>
       </div>
@@ -406,199 +458,185 @@
 </section>
 
 <!-- STORY -->
-<section class="story" id="story">
-  <div class="story-inner">
-    <div class="story-eyebrow" data-en="The Story Behind Dose Diary" data-vi="Câu chuyện đằng sau Dose Diary">The Story Behind Dose Diary</div>
-    <span class="story-emoji">💜</span>
-    <h2 class="story-title" data-en="Born from personal need.<br/>Grown into a community." data-vi="Khởi đầu từ nhu cầu cá nhân.<br/>Lớn lên thành cộng đồng.">Born from personal need.<br/>Grown into a community.</h2>
+<section class="tile-story" id="story">
+  <div class="tile-inner">
+    <p class="tile-kicker" data-en="Our Story" data-vi="Câu chuyện">Our Story</p>
+    <h2 class="tile-title" data-en="Built from<br/>personal need." data-vi="Được xây dựng<br/>từ nhu cầu cá nhân.">Built from<br/>personal need.</h2>
+    <p class="tile-sub" data-en="Not a startup. Not a business plan. Built on weekends, for real patients — starting with two." data-vi="Không phải startup. Không phải kế hoạch kinh doanh. Được xây dựng vào cuối tuần, cho bệnh nhân thực sự — bắt đầu từ hai người.">Not a startup. Not a business plan. Built on weekends, for real patients — starting with two.</p>
 
-    <!-- 3 reason cards -->
-    <div class="story-cards">
-      <div class="story-card">
-        <span class="story-card-icon">🏳️‍⚧️</span>
-        <div class="story-card-title" data-en="My own HRT journey" data-vi="Hành trình HRT của tôi">My own HRT journey</div>
-        <div class="story-card-desc" data-en="I needed a reliable way to track my own hormone medications — doses, timing, and long-term history — without relying on paper or generic reminder apps." data-vi="Tôi cần một cách đáng tin cậy để theo dõi thuốc hormone của mình — liều lượng, thời gian và lịch sử dài hạn — thay vì dùng giấy tờ hay app nhắc nhở thông thường.">I needed a reliable way to track my own hormone medications — doses, timing, and long-term history — without relying on paper or generic reminder apps.</div>
+    <div class="story-grid">
+      <div class="story-ch">
+        <div class="ch-num">01</div>
+        <h3 class="ch-title" data-en="My own HRT journey" data-vi="Hành trình HRT của tôi">My own HRT journey</h3>
+        <p class="ch-body" data-en="I needed a reliable way to track my own hormone medications — doses, timing, long-term history — without relying on paper or generic reminder apps." data-vi="Tôi cần cách đáng tin cậy để theo dõi thuốc hormone — liều lượng, thời gian, lịch sử dài hạn — không dùng giấy tờ hay app nhắc nhở thông thường.">I needed a reliable way to track my own hormone medications — doses, timing, long-term history — without relying on paper or generic reminder apps.</p>
       </div>
-      <div class="story-card">
-        <span class="story-card-icon">💗</span>
-        <div class="story-card-title" data-en="Caring for my wife" data-vi="Chăm sóc vợ tôi">Caring for my wife</div>
-        <div class="story-card-desc" data-en="My wife is a kidney patient with a complex, ever-changing treatment regimen. Managing Tacrolimus, Mycophenolate, and multiple other medications daily demanded something smarter than memory." data-vi="Vợ tôi là bệnh nhân bệnh thận với phác đồ điều trị phức tạp, thay đổi liên tục. Quản lý Tacrolimus, Mycophenolate và nhiều loại thuốc mỗi ngày cần thứ gì đó thông minh hơn là trí nhớ.">My wife is a kidney patient with a complex, ever-changing treatment regimen. Managing Tacrolimus, Mycophenolate, and multiple other medications daily demanded something smarter than memory.</div>
+      <div class="story-ch">
+        <div class="ch-num">02</div>
+        <h3 class="ch-title" data-en="Caring for my wife" data-vi="Chăm sóc vợ tôi">Caring for my wife</h3>
+        <p class="ch-body" data-en="My wife is a kidney patient with a complex, ever-changing regimen. Managing Tacrolimus, Mycophenolate, and other medications daily demanded something smarter than memory." data-vi="Vợ tôi là bệnh nhân thận với phác đồ phức tạp, thay đổi liên tục. Quản lý nhiều loại thuốc mỗi ngày đòi hỏi thứ gì đó thông minh hơn trí nhớ đơn thuần.">My wife is a kidney patient with a complex, ever-changing regimen. Managing Tacrolimus, Mycophenolate, and other medications daily demanded something smarter than memory.</p>
       </div>
-      <div class="story-card">
-        <span class="story-card-icon">🌏</span>
-        <div class="story-card-title" data-en="Community knowledge" data-vi="Kiến thức cộng đồng">Community knowledge</div>
-        <div class="story-card-desc" data-en="The HRT community in Vietnam has limited access to reliable medical information. I wanted to build a space to share knowledge — medically cited, accessible, and safe." data-vi="Cộng đồng HRT tại Việt Nam còn thiếu thông tin y tế đáng tin cậy. Tôi muốn tạo ra một không gian chia sẻ kiến thức — có trích dẫn y khoa, dễ tiếp cận và an toàn.">The HRT community in Vietnam has limited access to reliable medical information. I wanted to build a space to share knowledge — medically cited, accessible, and safe.</div>
+      <div class="story-ch">
+        <div class="ch-num">03</div>
+        <h3 class="ch-title" data-en="A community without resources" data-vi="Cộng đồng thiếu thông tin">A community without resources</h3>
+        <p class="ch-body" data-en="The HRT community in Vietnam has limited access to reliable medical information. I built a medically-cited reference library — accessible, honest, and safe." data-vi="Cộng đồng HRT tại Việt Nam thiếu thông tin y tế đáng tin cậy. Tôi xây dựng thư viện tham khảo có trích dẫn — dễ tiếp cận, trung thực và an toàn.">The HRT community in Vietnam has limited access to reliable medical information. I built a medically-cited reference library — accessible, honest, and safe.</p>
       </div>
     </div>
 
-    <div class="story-body">
-      <p data-en="Dose Diary is not a startup product or a business plan. It started as a <span class='hl'>deeply personal tool</span> — built on weekends, refined through real daily use by me and my wife." data-vi="Dose Diary không phải sản phẩm startup hay kế hoạch kinh doanh. Nó bắt đầu như một <span class='hl'>công cụ mang tính cá nhân sâu sắc</span> — được xây dựng vào cuối tuần, được hoàn thiện qua việc sử dụng thực tế hàng ngày của tôi và vợ.">
-        Dose Diary is not a startup product or a business plan. It started as a <span class="hl">deeply personal tool</span> — built on weekends, refined through real daily use by me and my wife.
-      </p>
-      <p data-en="Over time, I realized many others face the same challenges — people on HRT, chronic illness patients, caregivers managing medications for loved ones. So I opened it up, added an HRT reference library with <span class='hl'>medically-cited sources</span>, and made it available for free." data-vi="Theo thời gian, tôi nhận ra nhiều người cũng đối mặt với những thách thức tương tự — người dùng HRT, bệnh nhân mãn tính, người chăm sóc quản lý thuốc cho người thân. Vì vậy tôi mở rộng nó, thêm thư viện tham khảo HRT với <span class='hl'>nguồn trích dẫn y khoa</span>, và phát hành miễn phí.">
-        Over time, I realized many others face the same challenges — people on HRT, chronic illness patients, caregivers managing medications for loved ones. So I opened it up, added an HRT reference library with <span class="hl">medically-cited sources</span>, and made it available for free.
-      </p>
-      <p data-en="If this app helps even one person stay consistent with their treatment — that's everything. <span class='hl'>Your health journey matters.</span>" data-vi="Nếu ứng dụng này giúp được dù chỉ một người duy trì đều đặn việc điều trị — đó là tất cả. <span class='hl'>Hành trình sức khỏe của bạn rất quan trọng.</span>">
-        If this app helps even one person stay consistent with their treatment — that's everything. <span class="hl">Your health journey matters.</span>
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features" id="features">
-  <div class="section-hdr">
-    <div class="eyebrow" data-en="Features" data-vi="Tính năng">Features</div>
-    <h2 class="sec-title" data-en="Everything you need to stay on track" data-vi="Mọi thứ bạn cần để không bỏ lỡ">Everything you need to stay on track</h2>
-    <p class="sec-sub" data-en="Designed for real patients with real complexity." data-vi="Được thiết kế cho bệnh nhân thực sự với sự phức tạp thực sự.">Designed for real patients with real complexity.</p>
-  </div>
-  <div class="feat-grid">
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#EDE9FE">📅</div>
-      <div class="feat-title" data-en="Flexible Scheduling" data-vi="Lịch linh hoạt">Flexible Scheduling</div>
-      <div class="feat-desc" data-en="Daily, weekly, every 2–4 weeks — handle any regimen your doctor prescribes, not just simple daily reminders." data-vi="Hàng ngày, hàng tuần, mỗi 2–4 tuần — xử lý bất kỳ phác đồ nào bác sĩ kê, không chỉ nhắc nhở đơn giản.">Daily, weekly, every 2–4 weeks — handle any regimen your doctor prescribes, not just simple daily reminders.</div>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#D1FAE5">✅</div>
-      <div class="feat-title" data-en="One-tap Logging" data-vi="Ghi nhận một chạm">One-tap Logging</div>
-      <div class="feat-desc" data-en="Mark medications as taken instantly. Track history with timestamps so you always know exactly when each dose was taken." data-vi="Đánh dấu thuốc đã uống ngay lập tức. Theo dõi lịch sử với thời gian chính xác.">Mark medications as taken instantly. Track history with timestamps so you always know exactly when each dose was taken.</div>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#FEF3C7">🔔</div>
-      <div class="feat-title" data-en="Smart Reminders" data-vi="Nhắc nhở thông minh">Smart Reminders</div>
-      <div class="feat-desc" data-en="Customizable notifications timed to your dose schedule. Before meal, after meal — the reminder fits your routine." data-vi="Thông báo tùy chỉnh theo lịch uống thuốc. Trước bữa ăn, sau bữa ăn — nhắc nhở phù hợp với thói quen của bạn.">Customizable notifications timed to your dose schedule. Before meal, after meal — the reminder fits your routine.</div>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#FCE7F3">📊</div>
-      <div class="feat-title" data-en="Adherence Analytics" data-vi="Phân tích tuân thủ điều trị">Adherence Analytics</div>
-      <div class="feat-desc" data-en="See your weekly and monthly adherence at a glance. Understand your patterns and stay consistent with your treatment plan." data-vi="Xem mức độ tuân thủ hàng tuần và hàng tháng. Hiểu xu hướng của bạn và duy trì nhất quán với kế hoạch điều trị.">See your weekly and monthly adherence at a glance. Understand your patterns and stay consistent with your treatment plan.</div>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#E0F2FE">📚</div>
-      <div class="feat-title" data-en="HRT Reference Library" data-vi="Thư viện tham khảo HRT">HRT Reference Library</div>
-      <div class="feat-desc" data-en="Comprehensive, medically-cited reference for hormone therapy medications. Dosages, timing, and clinical context from WPATH, UCSF, and Endocrine Society." data-vi="Tài liệu tham khảo đầy đủ, có trích dẫn y khoa về thuốc liệu pháp hormone. Liều lượng, thời gian từ WPATH, UCSF và Endocrine Society.">Comprehensive, medically-cited reference for hormone therapy medications. Dosages, timing, and clinical context from WPATH, UCSF, and Endocrine Society.</div>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#F3F4F6">📱</div>
-      <div class="feat-title" data-en="Home Screen Widget" data-vi="Widget màn hình chính">Home Screen Widget</div>
-      <div class="feat-desc" data-en="See today's pending medications at a glance — right on your home screen. No need to open the app." data-vi="Xem thuốc cần uống hôm nay ngay trên màn hình chính — không cần mở ứng dụng.">See today's pending medications at a glance — right on your home screen. No need to open the app.</div>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#EDE9FE">🔒</div>
-      <div class="feat-title" data-en="100% Private" data-vi="100% Riêng tư">100% Private</div>
-      <div class="feat-desc" data-en="Your health data stays on your device. No account required, no cloud upload, no data sold. Your medical history belongs to you." data-vi="Dữ liệu sức khỏe của bạn ở lại trên thiết bị. Không cần tài khoản, không tải lên đám mây, không bán dữ liệu.">Your health data stays on your device. No account required, no cloud upload, no data sold. Your medical history belongs to you.</div>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#D1FAE5">🌐</div>
-      <div class="feat-title" data-en="Bilingual — EN / VI" data-vi="Song ngữ — EN / VI">Bilingual — EN / VI</div>
-      <div class="feat-desc" data-en="Full support for English and Vietnamese. Switch languages instantly in Settings." data-vi="Hỗ trợ đầy đủ tiếng Anh và tiếng Việt. Chuyển đổi ngôn ngữ ngay trong Cài đặt.">Full support for English and Vietnamese. Switch languages instantly in Settings.</div>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#FEF9C3">⭐</div>
-      <div class="feat-title" data-en="Free Forever" data-vi="Miễn phí mãi mãi">Free Forever</div>
-      <div class="feat-desc" data-en="Core features are completely free. No paywalls for medication tracking and reminders — because your health can't wait." data-vi="Tính năng cốt lõi hoàn toàn miễn phí. Không có tường phí cho việc theo dõi thuốc — vì sức khỏe của bạn không thể chờ đợi.">Core features are completely free. No paywalls for medication tracking and reminders — because your health can't wait.</div>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#ECFDF5">🤖</div>
-      <div class="feat-title" data-en="AI Health Assistant" data-vi="Trợ lý sức khỏe AI">AI Health Assistant</div>
-      <div class="feat-desc" data-en="Ask health questions and get answers with cited medical sources. Query your own schedule, check adherence trends, and get personalized insights — all on-device." data-vi="Đặt câu hỏi sức khỏe và nhận câu trả lời có trích dẫn y khoa. Tra cứu lịch uống thuốc, kiểm tra xu hướng tuân thủ và nhận thông tin cá nhân hóa — hoàn toàn trên thiết bị.">Ask health questions and get answers with cited medical sources. Query your own schedule, check adherence trends, and get personalized insights — all on-device.</div>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#FFF7ED">📷</div>
-      <div class="feat-title" data-en="Prescription Scanner" data-vi="Scan đơn thuốc">Prescription Scanner</div>
-      <div class="feat-desc" data-en="Point your camera at a prescription and Dose Diary reads it automatically — extracting medication names, dosages, and schedules to create your regimen in seconds." data-vi="Chụp ảnh đơn thuốc và Dose Diary tự động đọc — trích xuất tên thuốc, liều lượng và lịch uống để tạo lịch điều trị chỉ trong vài giây.">Point your camera at a prescription and Dose Diary reads it automatically — extracting medication names, dosages, and schedules to create your regimen in seconds.</div>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#FCE7F3">💊</div>
-      <div class="feat-title" data-en="Medication Stock Tracking" data-vi="Quản lý số lượng thuốc">Medication Stock Tracking</div>
-      <div class="feat-desc" data-en="Know exactly how many pills you have left. Doses are automatically deducted when logged, and refill alerts warn you before you run out." data-vi="Biết chính xác còn bao nhiêu viên thuốc. Liều lượng tự động trừ khi ghi nhận, và cảnh báo tái cung trước khi hết thuốc.">Know exactly how many pills you have left. Doses are automatically deducted when logged, and refill alerts warn you before you run out.</div>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon" style="background:#EDE9FE">👤</div>
-      <div class="feat-title" data-en="User Profile &amp; Personalization" data-vi="Hồ sơ &amp; Cá nhân hóa">User Profile &amp; Personalization</div>
-      <div class="feat-desc" data-en="Set your profile as HRT or General patient. The app adapts its interface and surfaces relevant features — like the HRT reference library — based on your needs." data-vi="Thiết lập hồ sơ HRT hoặc bệnh nhân thông thường. Ứng dụng điều chỉnh giao diện và hiển thị tính năng phù hợp — như thư viện HRT — dựa trên nhu cầu của bạn.">Set your profile as HRT or General patient. The app adapts its interface and surfaces relevant features — like the HRT reference library — based on your needs.</div>
+    <div class="story-prose">
+      <p data-en="Dose Diary is not a startup product or a business plan. It started as a <strong>deeply personal tool</strong> — built on weekends, refined through real daily use by me and my wife." data-vi="Dose Diary không phải sản phẩm startup hay kế hoạch kinh doanh. Nó bắt đầu như một <strong>công cụ mang tính cá nhân sâu sắc</strong> — xây dựng vào cuối tuần, được hoàn thiện qua sử dụng thực tế hàng ngày của tôi và vợ.">Dose Diary is not a startup product or a business plan. It started as a <strong>deeply personal tool</strong> — built on weekends, refined through real daily use by me and my wife.</p>
+      <p data-en="Over time, I realized many others face the same challenges — people on HRT, chronic illness patients, caregivers managing medications for loved ones. So I opened it up, added an HRT reference library with <strong>medically-cited sources</strong>, and made it free." data-vi="Theo thời gian, tôi nhận ra nhiều người cũng đối mặt với thách thức tương tự. Tôi mở rộng nó, thêm thư viện HRT với <strong>nguồn trích dẫn y khoa</strong>, và phát hành miễn phí.">Over time, I realized many others face the same challenges — people on HRT, chronic illness patients, caregivers managing medications for loved ones. So I opened it up, added an HRT reference library with <strong>medically-cited sources</strong>, and made it free.</p>
+      <p data-en="If this app helps even one person stay consistent with their treatment — that's everything." data-vi="Nếu ứng dụng này giúp dù chỉ một người duy trì đều đặn việc điều trị — đó là tất cả.">If this app helps even one person stay consistent with their treatment — that's everything.</p>
     </div>
   </div>
 </section>
 
 <!-- PRIVACY -->
-<section class="privacy-section" id="privacy">
-  <div class="privacy-inner">
-    <div class="eyebrow" style="margin-bottom:8px" data-en="Privacy Policy" data-vi="Chính sách quyền riêng tư">Privacy Policy</div>
-    <h2 data-en="We take your privacy seriously." data-vi="Chúng tôi coi trọng quyền riêng tư của bạn.">We take your privacy seriously.</h2>
-    <p class="privacy-date" data-en="Last updated: May 2026 · Contact: <a href='mailto:jay.tran@kreebox.com'>jay.tran@kreebox.com</a>" data-vi="Cập nhật lần cuối: Tháng 5 năm 2026 · Liên hệ: <a href='mailto:jay.tran@kreebox.com'>jay.tran@kreebox.com</a>">Last updated: May 2026 · Contact: <a href="mailto:jay.tran@kreebox.com">jay.tran@kreebox.com</a></p>
+<section class="tile-privacy" id="privacy">
+  <div class="tile-inner">
+    <p class="tile-kicker" data-en="Privacy" data-vi="Riêng tư">Privacy</p>
+    <h2 class="tile-title" data-en="Your health data<br/>stays with you." data-vi="Dữ liệu sức khỏe của bạn<br/>ở lại với bạn.">Your health data<br/>stays with you.</h2>
+    <p class="tile-sub" data-en="No account required. No cloud upload. No data sold. Everything lives on your iPhone." data-vi="Không cần tài khoản. Không tải lên đám mây. Không bán dữ liệu. Mọi thứ ở lại trên iPhone của bạn.">No account required. No cloud upload. No data sold. Everything lives on your iPhone.</p>
 
-    <div class="prv-block">
-      <h3 data-en="🔒 Data stays on your device" data-vi="🔒 Dữ liệu ở lại trên thiết bị của bạn">🔒 Data stays on your device</h3>
-      <p data-en="Dose Diary stores all medication data locally using Apple's SwiftData framework. We do not collect, transmit, or store any personal health information on external servers." data-vi="Dose Diary lưu trữ tất cả dữ liệu thuốc cục bộ bằng framework SwiftData của Apple. Chúng tôi không thu thập, truyền hoặc lưu trữ thông tin sức khỏe cá nhân trên máy chủ bên ngoài.">Dose Diary stores all medication data locally using Apple's SwiftData framework. We do not collect, transmit, or store any personal health information on external servers.</p>
-      <div class="prv-note" data-en="💜 Your medication history, schedules, and logs are stored only on your iPhone and are never sent to us or any third party." data-vi="💜 Lịch sử thuốc, lịch trình và nhật ký của bạn chỉ được lưu trên iPhone và không bao giờ được gửi cho chúng tôi hoặc bên thứ ba.">💜 Your medication history, schedules, and logs are stored only on your iPhone and are never sent to us or any third party.</div>
+    <div class="priv-cards">
+      <div class="priv-card">
+        <div class="priv-badge">● <span data-en="On-device only" data-vi="Chỉ trên thiết bị">On-device only</span></div>
+        <h3 class="priv-card-title" data-en="SwiftData — local storage" data-vi="SwiftData — lưu trữ cục bộ">SwiftData — local storage</h3>
+        <p class="priv-card-body" data-en="All medication history, schedules, and logs are stored using Apple's SwiftData framework. Nothing is transmitted to external servers — ever." data-vi="Toàn bộ lịch sử thuốc, lịch trình và nhật ký được lưu bằng SwiftData của Apple. Không có gì được truyền đến máy chủ bên ngoài.">All medication history, schedules, and logs are stored using Apple's SwiftData framework. Nothing is transmitted to external servers — ever.</p>
+      </div>
+      <div class="priv-card">
+        <div class="priv-badge" style="color:#fff">◉ <span data-en="Transparent" data-vi="Minh bạch">Transparent</span></div>
+        <h3 class="priv-card-title" data-en="Ads keep it free" data-vi="Quảng cáo giữ nó miễn phí">Ads keep it free</h3>
+        <p class="priv-card-body" data-en="To keep core features free, we show ads via Google AdMob. AdMob may collect limited, anonymized data. You choose your tracking preference at first launch." data-vi="Để giữ tính năng cốt lõi miễn phí, chúng tôi hiển thị quảng cáo qua AdMob. AdMob có thể thu thập dữ liệu ẩn danh hạn chế. Bạn chọn tùy chọn theo dõi khi khởi động lần đầu.">To keep core features free, we show ads via Google AdMob. AdMob may collect limited, anonymized data. You choose your tracking preference at first launch.</p>
+      </div>
+      <div class="priv-card">
+        <div class="priv-badge" style="color:#007aff">◎ <span data-en="Local only" data-vi="Cục bộ">Local only</span></div>
+        <h3 class="priv-card-title" data-en="Reminders stay local" data-vi="Nhắc nhở ở lại cục bộ">Reminders stay local</h3>
+        <p class="priv-card-body" data-en="All medication reminders are scheduled on your device. No notification data leaves your iPhone." data-vi="Tất cả nhắc nhở thuốc được lên lịch trên thiết bị của bạn. Không có dữ liệu thông báo nào rời khỏi iPhone.">All medication reminders are scheduled on your device. No notification data leaves your iPhone.</p>
+      </div>
     </div>
 
-    <div class="prv-block">
-      <h3 data-en="📊 Analytics & Advertising" data-vi="📊 Phân tích & Quảng cáo">📊 Analytics & Advertising</h3>
-      <p data-en="To keep the app free, we display ads via Google AdMob. AdMob may collect limited, anonymized data to serve relevant ads. You will be asked for your tracking preference on first launch." data-vi="Để giữ ứng dụng miễn phí, chúng tôi hiển thị quảng cáo qua Google AdMob. AdMob có thể thu thập dữ liệu ẩn danh hạn chế. Bạn sẽ được hỏi về tùy chọn theo dõi khi mở ứng dụng lần đầu.">To keep the app free, we display ads via Google AdMob. AdMob may collect limited, anonymized data to serve relevant ads. You will be asked for your tracking preference on first launch.</p>
-    </div>
+    <p style="margin-top:32px; font-size:12px; color:#6e6e73;">
+      <span data-en="Last updated May 2026 · " data-vi="Cập nhật tháng 5 năm 2026 · ">Last updated May 2026 · </span><a href="mailto:jay.tran@kreebox.com" style="color:#2997ff;text-decoration:none">jay.tran@kreebox.com</a>
+    </p>
+  </div>
+</section>
 
-    <div class="prv-block">
-      <h3 data-en="🔔 Notifications" data-vi="🔔 Thông báo">🔔 Notifications</h3>
-      <p data-en="Medication reminders are scheduled locally on your device. No notification data is sent to our servers." data-vi="Nhắc nhở thuốc được lên lịch cục bộ trên thiết bị của bạn. Không có dữ liệu thông báo nào được gửi đến máy chủ của chúng tôi.">Medication reminders are scheduled locally on your device. No notification data is sent to our servers.</p>
+<!-- FEATURES -->
+<section class="tile-features" id="features">
+  <div style="max-width:980px; margin:0 auto;">
+    <h2 class="feat-section-title" data-en="Everything you need<br/>to stay on track." data-vi="Mọi thứ bạn cần<br/>để không bỏ lỡ.">Everything you need<br/>to stay on track.</h2>
+    <div class="feat-row">
+      <div class="feat-cell">
+        <h3 class="feat-cell-title" data-en="Flexible Scheduling" data-vi="Lịch linh hoạt">Flexible Scheduling</h3>
+        <p class="feat-cell-body" data-en="Daily, weekly, every 2–4 weeks — handle any regimen your doctor prescribes, not just simple daily reminders." data-vi="Hàng ngày, hàng tuần, mỗi 2–4 tuần — xử lý bất kỳ phác đồ nào bác sĩ kê.">Daily, weekly, every 2–4 weeks — handle any regimen your doctor prescribes, not just simple daily reminders.</p>
+      </div>
+      <div class="feat-cell">
+        <h3 class="feat-cell-title" data-en="One-tap Logging" data-vi="Ghi nhận một chạm">One-tap Logging</h3>
+        <p class="feat-cell-body" data-en="Mark medications taken instantly with a timestamp. Always know exactly when each dose was taken." data-vi="Đánh dấu thuốc đã uống ngay lập tức với thời gian chính xác. Luôn biết chính xác khi nào uống mỗi liều.">Mark medications taken instantly with a timestamp. Always know exactly when each dose was taken.</p>
+      </div>
+      <div class="feat-cell">
+        <h3 class="feat-cell-title" data-en="Smart Reminders" data-vi="Nhắc nhở thông minh">Smart Reminders</h3>
+        <p class="feat-cell-body" data-en="Customizable notifications timed to your dose schedule. Before meal, after meal — the reminder fits your routine." data-vi="Thông báo tùy chỉnh theo lịch uống thuốc. Trước hay sau bữa ăn — nhắc nhở phù hợp thói quen của bạn.">Customizable notifications timed to your dose schedule. Before meal, after meal — the reminder fits your routine.</p>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="prv-block">
-      <h3 data-en="✉️ Contact" data-vi="✉️ Liên hệ">✉️ Contact</h3>
-      <p><a href="mailto:jay.tran@kreebox.com" style="color:var(--purple)">jay.tran@kreebox.com</a></p>
+<!-- HRT LIBRARY -->
+<section class="tile-hrt">
+  <div class="tile-inner">
+    <p class="tile-kicker" data-en="HRT Reference Library" data-vi="Thư viện tham khảo HRT">HRT Reference Library</p>
+    <h2 class="tile-title" data-en="Medically cited.<br/>Community built." data-vi="Được trích dẫn y khoa.<br/>Cộng đồng xây dựng.">Medically cited.<br/>Community built.</h2>
+    <p class="tile-sub" data-en="Comprehensive reference for hormone therapy medications — dosages, timing, clinical context. Sourced from the authorities your doctors trust." data-vi="Tài liệu tham khảo đầy đủ về liệu pháp hormone — liều lượng, thời gian, bối cảnh lâm sàng. Từ các tổ chức mà bác sĩ của bạn tin tưởng.">Comprehensive reference for hormone therapy medications — dosages, timing, clinical context. Sourced from the authorities your doctors trust.</p>
+    <div class="hrt-sources">
+      <span class="source-chip">WPATH</span>
+      <span class="source-chip">UCSF Transgender Care</span>
+      <span class="source-chip">Endocrine Society</span>
+      <span class="source-chip">medically cited</span>
+    </div>
+  </div>
+</section>
+
+<!-- MORE FEATURES -->
+<section class="tile-more">
+  <div style="max-width:980px; margin:0 auto;">
+    <h2 class="feat-section-title" data-en="And much more." data-vi="Và nhiều hơn nữa.">And much more.</h2>
+    <div class="more-row">
+      <div class="more-cell">
+        <div class="more-cell-label" data-en="AI" data-vi="AI">AI</div>
+        <h3 class="more-cell-title" data-en="Prescription Scanner" data-vi="Scan đơn thuốc">Prescription Scanner</h3>
+        <p class="more-cell-body" data-en="Point your camera at a prescription. Dose Diary reads medication names, dosages, and schedules automatically — creating your regimen in seconds." data-vi="Chụp ảnh đơn thuốc. Dose Diary tự động đọc tên thuốc, liều lượng và lịch uống — tạo lịch điều trị chỉ trong vài giây.">Point your camera at a prescription. Dose Diary reads medication names, dosages, and schedules automatically — creating your regimen in seconds.</p>
+      </div>
+      <div class="more-cell">
+        <div class="more-cell-label" data-en="AI" data-vi="AI">AI</div>
+        <h3 class="more-cell-title" data-en="AI Health Assistant" data-vi="Trợ lý AI sức khỏe">AI Health Assistant</h3>
+        <p class="more-cell-body" data-en="Ask health questions and get answers backed by cited medical sources. Query your own schedule, check adherence trends — all on device." data-vi="Đặt câu hỏi sức khỏe và nhận câu trả lời có trích dẫn y khoa. Tra cứu lịch uống thuốc, kiểm tra tuân thủ — hoàn toàn trên thiết bị.">Ask health questions and get answers backed by cited medical sources. Query your own schedule, check adherence trends — all on device.</p>
+      </div>
+      <div class="more-cell">
+        <div class="more-cell-label" data-en="Tracking" data-vi="Theo dõi">Tracking</div>
+        <h3 class="more-cell-title" data-en="Stock & Refill Alerts" data-vi="Quản lý số lượng & cảnh báo">Stock & Refill Alerts</h3>
+        <p class="more-cell-body" data-en="Know exactly how many pills remain. Doses are auto-deducted when logged, with alerts before you run out." data-vi="Biết chính xác còn bao nhiêu viên. Liều tự động trừ khi ghi nhận, cảnh báo trước khi hết thuốc.">Know exactly how many pills remain. Doses are auto-deducted when logged, with alerts before you run out.</p>
+      </div>
+      <div class="more-cell">
+        <div class="more-cell-label" data-en="Analytics" data-vi="Phân tích">Analytics</div>
+        <h3 class="more-cell-title" data-en="Adherence Analytics" data-vi="Phân tích tuân thủ">Adherence Analytics</h3>
+        <p class="more-cell-body" data-en="Weekly and monthly adherence at a glance. Understand your patterns and stay consistent with your treatment plan." data-vi="Tuân thủ hàng tuần và hàng tháng một cái nhìn. Hiểu xu hướng và duy trì nhất quán với kế hoạch điều trị.">Weekly and monthly adherence at a glance. Understand your patterns and stay consistent with your treatment plan.</p>
+      </div>
+      <div class="more-cell">
+        <div class="more-cell-label" data-en="Widget" data-vi="Widget">Widget</div>
+        <h3 class="more-cell-title" data-en="Home Screen Widget" data-vi="Widget màn hình chính">Home Screen Widget</h3>
+        <p class="more-cell-body" data-en="Today's pending medications at a glance, right on your home screen. No need to open the app." data-vi="Thuốc cần uống hôm nay ngay trên màn hình chính. Không cần mở ứng dụng.">Today's pending medications at a glance, right on your home screen. No need to open the app.</p>
+      </div>
+      <div class="more-cell">
+        <div class="more-cell-label" data-en="Language" data-vi="Ngôn ngữ">Language</div>
+        <h3 class="more-cell-title" data-en="Bilingual EN · VI" data-vi="Song ngữ EN · VI">Bilingual EN · VI</h3>
+        <p class="more-cell-body" data-en="Full English and Vietnamese support. Switch instantly in Settings — every screen, every label." data-vi="Hỗ trợ đầy đủ tiếng Anh và tiếng Việt. Chuyển đổi ngay trong Cài đặt — mọi màn hình.">Full English and Vietnamese support. Switch instantly in Settings — every screen, every label.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta">
-  <div class="cta-title" data-en="Start tracking today.<br/>It's free." data-vi="Bắt đầu theo dõi ngay hôm nay.<br/>Hoàn toàn miễn phí.">Start tracking today.<br/>It's free.</div>
-  <p class="cta-sub" data-en="Join patients and caregivers who rely on Dose Diary every day." data-vi="Cùng những bệnh nhân và người chăm sóc tin dùng Dose Diary mỗi ngày.">Join patients and caregivers who rely on Dose Diary every day.</p>
-  <a href="https://apps.apple.com/app/id6763815560" class="btn-white">
-    <span data-en="Download on App Store" data-vi="Tải trên App Store">Download on App Store</span>
-  </a>
+<section class="tile-cta">
+  <div class="tile-inner">
+    <h2 class="tile-title" data-en="Start tracking today." data-vi="Bắt đầu theo dõi ngay hôm nay.">Start tracking today.</h2>
+    <p class="tile-sub" data-en="Free. Private. Built for patients who need reliability." data-vi="Miễn phí. Riêng tư. Được xây dựng cho bệnh nhân cần sự tin cậy.">Free. Private. Built for patients who need reliability.</p>
+    <a href="https://apps.apple.com/app/id6763815560" class="btn-blue">
+      <svg width="15" height="18" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 662.9 0 541.3c0-194.3 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/></svg>
+      <span data-en="Download on App Store" data-vi="Tải trên App Store">Download on App Store</span>
+    </a>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div style="max-width:1100px; margin:0 auto">
+  <div class="footer-inner">
     <div class="footer-links">
       <a href="#story" data-en="Our Story" data-vi="Câu chuyện">Our Story</a>
       <a href="#features" data-en="Features" data-vi="Tính năng">Features</a>
       <a href="#privacy" data-en="Privacy Policy" data-vi="Chính sách riêng tư">Privacy Policy</a>
       <a href="mailto:jay.tran@kreebox.com" data-en="Contact" data-vi="Liên hệ">Contact</a>
     </div>
-    <p>© 2026 Dose Diary · <span data-en="Made with" data-vi="Làm bằng">Made with</span> 💜 <span data-en="by" data-vi="bởi">by</span> <a href="mailto:jay.tran@kreebox.com">Phuong Tran</a></p>
-    <p style="display:none"><a href="/app-ads.txt">app-ads.txt</a></p>
+    <p class="footer-copy">
+      Copyright © 2026 Dose Diary · <a href="mailto:jay.tran@kreebox.com">Phuong Tran</a>
+    </p>
   </div>
 </footer>
 
 <script>
   let currentLang = 'en';
-
   function setLang(lang) {
     currentLang = lang;
-
-    // Toggle button styles
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.textContent.toLowerCase() === lang);
     });
-
-    // Update all elements with data-en / data-vi
     document.querySelectorAll('[data-en]').forEach(el => {
-      const text = el.getAttribute('data-' + lang);
-      if (text) el.innerHTML = text;
+      const t = el.getAttribute('data-' + lang);
+      if (t) el.innerHTML = t;
     });
-
-    // Update html lang attribute
     document.documentElement.lang = lang === 'vi' ? 'vi' : 'en';
   }
-
-  // Auto-detect Vietnamese browser
-  if (navigator.language && navigator.language.startsWith('vi')) {
-    setLang('vi');
-  }
+  if (navigator.language && navigator.language.startsWith('vi')) setLang('vi');
 </script>
 </body>
 </html>
