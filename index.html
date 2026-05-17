@@ -576,9 +576,13 @@
       border-top: 1px solid var(--hairline);
       padding: 24px 22px;
     }
-    .footer-inner { max-width: 980px; margin: 0 auto; }
+    .footer-inner {
+      max-width: 980px; margin: 0 auto;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+    }
+    .footer-left { flex: 1; min-width: 0; }
     .footer-links {
-      display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 16px;
+      display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 12px;
     }
     .footer-links a {
       font-size: 12px; color: var(--ink-60); text-decoration: none;
@@ -589,6 +593,15 @@
       font-size: 12px; color: var(--ink-40); letter-spacing: -.12px;
     }
     .footer-copy a { color: var(--ink-40); text-decoration: none; }
+    .footer-badge { flex-shrink: 0; }
+    .footer-badge a {
+      display: inline-block;
+      border-radius: 6px;
+      transition: opacity .15s ease, transform .15s ease;
+    }
+    .footer-badge a:hover { opacity: .82; transform: translateY(-2px); }
+    .footer-badge a:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
+    .footer-badge img { display: block; width: 250px; height: auto; }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
@@ -606,6 +619,8 @@
       .kidney-stat-row { gap: 28px; }
       .tile-story, .tile-privacy, .tile-features, .tile-hrt,
       .tile-kidney, .tile-more, .tile-cta { padding: 72px 22px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .footer-badge img { width: 210px; }
     }
 
     @media (max-width: 480px) {
@@ -946,16 +961,23 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-links">
-      <a href="#story" data-en="Our Story" data-vi="Câu chuyện">Our Story</a>
-      <a href="#features" data-en="Features" data-vi="Tính năng">Features</a>
-      <a href="#kidney" data-en="Kidney Mode" data-vi="Chế độ Lọc máu">Kidney Mode</a>
-      <a href="#privacy" data-en="Privacy Policy" data-vi="Chính sách riêng tư">Privacy Policy</a>
-      <a href="mailto:jay.tran@kreebox.com" data-en="Contact" data-vi="Liên hệ">Contact</a>
+    <div class="footer-left">
+      <div class="footer-links">
+        <a href="#story" data-en="Our Story" data-vi="Câu chuyện">Our Story</a>
+        <a href="#features" data-en="Features" data-vi="Tính năng">Features</a>
+        <a href="#kidney" data-en="Kidney Mode" data-vi="Chế độ Lọc máu">Kidney Mode</a>
+        <a href="#privacy" data-en="Privacy Policy" data-vi="Chính sách riêng tư">Privacy Policy</a>
+        <a href="mailto:jay.tran@kreebox.com" data-en="Contact" data-vi="Liên hệ">Contact</a>
+      </div>
+      <p class="footer-copy">
+        Copyright © 2026 Dose Diary · <a href="mailto:jay.tran@kreebox.com">Phuong Tran</a>
+      </p>
     </div>
-    <p class="footer-copy">
-      Copyright © 2026 Dose Diary · <a href="mailto:jay.tran@kreebox.com">Phuong Tran</a>
-    </p>
+    <div class="footer-badge">
+      <a href="https://www.producthunt.com/products/dosediary-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-dosediary-2" target="_blank" rel="noopener noreferrer">
+        <img alt="Dosediary - Built for my wife's kidney meds. And my own HRT. | Product Hunt" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1142711&theme=light&t=1779001534303">
+      </a>
+    </div>
   </div>
 </footer>
 
