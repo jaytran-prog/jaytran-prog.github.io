@@ -587,45 +587,60 @@
     }
 
     /* ─── INSIGHTS ─── */
-    .tile-insights { background: var(--canvas); padding: 100px 22px; border-top: 1px solid var(--hairline); }
+    .tile-insights { background: var(--tile-dark); padding: 100px 22px; }
+    .tile-insights .tile-kicker { color: var(--teal-light); }
+    .tile-insights .tile-title { color: #fff; }
+    .tile-insights .tile-sub { color: #a1a1a6; max-width: 620px; }
     .insights-stats {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 16px; margin: 48px 0;
+      margin: 56px 0 64px;
+      border: 1px solid rgba(255,255,255,.1); border-radius: 18px; overflow: hidden;
     }
     .insights-stat {
-      background: var(--parchment); border-radius: 18px;
-      padding: 36px 28px; text-align: center;
+      padding: 44px 36px; text-align: center;
+      border-right: 1px solid rgba(255,255,255,.1);
     }
+    .insights-stat:last-child { border-right: none; }
     .insights-stat-value {
-      font-size: clamp(38px, 5vw, 56px); font-weight: 700;
-      letter-spacing: -2px; color: var(--teal); line-height: 1;
-      margin-bottom: 10px;
+      font-size: clamp(44px, 5.5vw, 64px); font-weight: 700;
+      letter-spacing: -2.5px; color: var(--teal-light); line-height: 1;
+      margin-bottom: 14px;
     }
     .insights-stat-label {
-      font-size: 15px; font-weight: 600; color: var(--ink);
-      letter-spacing: -.2px; margin-bottom: 6px;
+      font-size: 15px; font-weight: 600; color: #f5f5f7;
+      letter-spacing: -.2px; margin-bottom: 8px;
     }
     .insights-stat-desc {
-      font-size: 13px; color: var(--ink-40); letter-spacing: -.1px; line-height: 1.5;
+      font-size: 13px; color: #86868b; letter-spacing: -.1px; line-height: 1.5;
     }
     .insights-tips-title {
-      font-size: 21px; font-weight: 600; color: var(--ink);
-      letter-spacing: -.5px; margin-bottom: 20px;
+      font-size: 21px; font-weight: 600; color: #f5f5f7;
+      letter-spacing: -.5px; margin-bottom: 16px;
     }
     .insights-tips-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 2px; background: rgba(255,255,255,.08);
+      border-radius: 18px; overflow: hidden;
     }
     .insights-tip {
-      background: var(--parchment); border-radius: 14px;
-      padding: 28px 24px; display: flex; gap: 16px; align-items: flex-start;
+      background: rgba(255,255,255,.04);
+      padding: 36px 32px; display: flex; gap: 20px; align-items: flex-start;
     }
-    .insights-tip-icon { font-size: 26px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+    .insights-tip:first-child { border-radius: 18px 0 0 0; }
+    .insights-tip:nth-child(2) { border-radius: 0 18px 0 0; }
+    .insights-tip:nth-child(3) { border-radius: 0 0 0 18px; }
+    .insights-tip:last-child { border-radius: 0 0 18px 0; }
+    .insights-tip-num {
+      font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      color: var(--teal-light); background: rgba(48,209,88,.12);
+      border-radius: 6px; padding: 5px 9px; flex-shrink: 0; line-height: 1.4; margin-top: 1px;
+    }
     .insights-tip-title {
-      font-size: 15px; font-weight: 600; color: var(--ink);
+      font-size: 15px; font-weight: 600; color: #f5f5f7;
       letter-spacing: -.2px; margin-bottom: 6px;
     }
     .insights-tip-text {
-      font-size: 13px; color: var(--ink-60); letter-spacing: -.1px; line-height: 1.57;
+      font-size: 13px; color: #86868b; letter-spacing: -.1px; line-height: 1.6;
     }
 
     /* ─── FAQ ─── */
@@ -709,7 +724,11 @@
       .tile-story, .tile-privacy, .tile-features, .tile-hrt,
       .tile-kidney, .tile-more, .tile-cta { padding: 72px 22px; }
       .insights-stats { grid-template-columns: 1fr; }
+      .insights-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); }
+      .insights-stat:last-child { border-bottom: none; }
       .insights-tips-grid { grid-template-columns: 1fr; }
+      .insights-tip:first-child, .insights-tip:nth-child(2),
+      .insights-tip:nth-child(3), .insights-tip:last-child { border-radius: 0; }
       .tile-insights { padding: 72px 22px; }
       .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
       .footer-badge img { width: 210px; }
@@ -1031,28 +1050,28 @@
     <h3 class="insights-tips-title" data-en="Tips for better tracking" data-vi="Mẹo theo dõi hiệu quả hơn">Tips for better tracking</h3>
     <div class="insights-tips-grid">
       <div class="insights-tip">
-        <div class="insights-tip-icon">⚖️</div>
+        <div class="insights-tip-num">01</div>
         <div>
           <div class="insights-tip-title" data-en="Weigh at the same time every day" data-vi="Cân cùng một thời điểm mỗi ngày">Weigh at the same time every day</div>
           <p class="insights-tip-text" data-en="Step on the scale each morning before eating or drinking. A consistent baseline gives your doctor an accurate dry-weight reference and makes UF volume calculations reliable across sessions." data-vi="Cân vào mỗi buổi sáng trước khi ăn hoặc uống. Cân nặng khô ổn định giúp bác sĩ có mốc tham chiếu chính xác và giúp tính lượng dịch cần rút (UF volume) chính xác hơn qua từng buổi lọc.">Step on the scale each morning before eating or drinking. A consistent baseline gives your doctor an accurate dry-weight reference and makes UF volume calculations reliable across sessions.</p>
         </div>
       </div>
       <div class="insights-tip">
-        <div class="insights-tip-icon">🩺</div>
+        <div class="insights-tip-num">02</div>
         <div>
           <div class="insights-tip-title" data-en="Log BP within 5 minutes of each session" data-vi="Ghi huyết áp trong vòng 5 phút mỗi buổi lọc">Log BP within 5 minutes of each session</div>
           <p class="insights-tip-text" data-en="Record blood pressure immediately before starting and right after finishing. Delayed readings skew your 90-day trend and can mask hypotension episodes that matter to your nephrologist." data-vi="Ghi huyết áp ngay trước khi bắt đầu và ngay sau khi kết thúc buổi lọc. Ghi trễ sẽ làm sai lệch xu hướng 90 ngày và có thể bỏ sót các đợt tụt huyết áp quan trọng với bác sĩ thận.">Record blood pressure immediately before starting and right after finishing. Delayed readings skew your 90-day trend and can mask hypotension episodes that matter to your nephrologist.</p>
         </div>
       </div>
       <div class="insights-tip">
-        <div class="insights-tip-icon">📋</div>
+        <div class="insights-tip-num">03</div>
         <div>
           <div class="insights-tip-title" data-en="Review your report the night before appointments" data-vi="Xem báo cáo tối hôm trước khi tái khám">Review your report the night before appointments</div>
           <p class="insights-tip-text" data-en="Open your 30-day analytics before any doctor visit. Adherence rate, missed doses, and BP range tell a clear story — no more trying to recall details from memory under pressure." data-vi="Mở báo cáo 30 ngày trước mỗi lần gặp bác sĩ. Tỷ lệ tuân thủ, liều bỏ lỡ và khoảng huyết áp kể một câu chuyện rõ ràng — không còn phải cố nhớ từng chi tiết khi đang lo lắng.">Open your 30-day analytics before any doctor visit. Adherence rate, missed doses, and BP range tell a clear story — no more trying to recall details from memory under pressure.</p>
         </div>
       </div>
       <div class="insights-tip">
-        <div class="insights-tip-icon">💊</div>
+        <div class="insights-tip-num">04</div>
         <div>
           <div class="insights-tip-title" data-en="Set refill alerts 7 days early" data-vi="Đặt cảnh báo bổ sung thuốc trước 7 ngày">Set refill alerts 7 days early</div>
           <p class="insights-tip-text" data-en="Enable stock tracking and trigger the alert a week before running out — not 1 or 2 days. Pharmacies run out, weekends delay orders, and missing a dose of Tacrolimus or Mycophenolate has real consequences." data-vi="Bật theo dõi tồn kho và đặt cảnh báo trước một tuần khi sắp hết — không phải 1 hay 2 ngày. Nhà thuốc có thể hết hàng, đơn hàng trễ vào cuối tuần, và bỏ lỡ một liều Tacrolimus hay Mycophenolate có thể gây hậu quả nghiêm trọng.">Enable stock tracking and trigger the alert a week before running out — not 1 or 2 days. Pharmacies run out, weekends delay orders, and missing a dose of Tacrolimus or Mycophenolate has real consequences.</p>
