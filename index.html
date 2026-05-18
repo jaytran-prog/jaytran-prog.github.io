@@ -586,6 +586,48 @@
       line-height: 1.57; letter-spacing: -.016em;
     }
 
+    /* ─── INSIGHTS ─── */
+    .tile-insights { background: var(--canvas); padding: 100px 22px; border-top: 1px solid var(--hairline); }
+    .insights-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin: 48px 0;
+    }
+    .insights-stat {
+      background: var(--parchment); border-radius: 18px;
+      padding: 36px 28px; text-align: center;
+    }
+    .insights-stat-value {
+      font-size: clamp(38px, 5vw, 56px); font-weight: 700;
+      letter-spacing: -2px; color: var(--teal); line-height: 1;
+      margin-bottom: 10px;
+    }
+    .insights-stat-label {
+      font-size: 15px; font-weight: 600; color: var(--ink);
+      letter-spacing: -.2px; margin-bottom: 6px;
+    }
+    .insights-stat-desc {
+      font-size: 13px; color: var(--ink-40); letter-spacing: -.1px; line-height: 1.5;
+    }
+    .insights-tips-title {
+      font-size: 21px; font-weight: 600; color: var(--ink);
+      letter-spacing: -.5px; margin-bottom: 20px;
+    }
+    .insights-tips-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    }
+    .insights-tip {
+      background: var(--parchment); border-radius: 14px;
+      padding: 28px 24px; display: flex; gap: 16px; align-items: flex-start;
+    }
+    .insights-tip-icon { font-size: 26px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+    .insights-tip-title {
+      font-size: 15px; font-weight: 600; color: var(--ink);
+      letter-spacing: -.2px; margin-bottom: 6px;
+    }
+    .insights-tip-text {
+      font-size: 13px; color: var(--ink-60); letter-spacing: -.1px; line-height: 1.57;
+    }
+
     /* ─── FAQ ─── */
     .tile-faq {
       background: var(--canvas); padding: 100px 22px;
@@ -666,6 +708,9 @@
       .kidney-stat-row { gap: 28px; }
       .tile-story, .tile-privacy, .tile-features, .tile-hrt,
       .tile-kidney, .tile-more, .tile-cta { padding: 72px 22px; }
+      .insights-stats { grid-template-columns: 1fr; }
+      .insights-tips-grid { grid-template-columns: 1fr; }
+      .tile-insights { padding: 72px 22px; }
       .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
       .footer-badge img { width: 210px; }
     }
@@ -953,6 +998,65 @@
         <div class="more-cell-label teal" data-en="Kidney" data-vi="Lọc máu">Kidney</div>
         <h3 class="more-cell-title" data-en="Session Completion Rate" data-vi="Tỷ lệ hoàn thành buổi lọc">Session Completion Rate</h3>
         <p class="more-cell-body" data-en="Know your dialysis adherence rate over 30, 60, or 90 days. Missed sessions are clearly flagged so you and your doctor can stay informed." data-vi="Biết tỷ lệ tuân thủ lọc máu trong 30, 60 hoặc 90 ngày. Buổi bỏ lỡ được đánh dấu rõ ràng để bạn và bác sĩ luôn nắm được tình trạng.">Know your dialysis adherence rate over 30, 60, or 90 days. Missed sessions are clearly flagged so you and your doctor can stay informed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHTS & TIPS -->
+<section class="tile-insights" id="insights">
+  <div class="tile-inner">
+    <p class="tile-kicker" data-en="Health Analytics" data-vi="Phân tích sức khỏe">Health Analytics</p>
+    <h2 class="tile-title" data-en="Know your numbers." data-vi="Hiểu rõ chỉ số của bạn.">Know your numbers.</h2>
+    <p class="tile-sub" data-en="30, 60, and 90-day reports track your medication adherence, dialysis completion rate, and blood pressure trends — so you walk into every appointment fully prepared." data-vi="Báo cáo 30, 60 và 90 ngày theo dõi tỷ lệ uống thuốc đúng hạn, tỷ lệ hoàn thành buổi lọc máu và xu hướng huyết áp — giúp bạn đến mỗi buổi tái khám với đầy đủ thông tin.">30, 60, and 90-day reports track your medication adherence, dialysis completion rate, and blood pressure trends — so you walk into every appointment fully prepared.</p>
+
+    <div class="insights-stats">
+      <div class="insights-stat">
+        <div class="insights-stat-value">≥ 85%</div>
+        <div class="insights-stat-label" data-en="Adherence goal" data-vi="Mục tiêu tuân thủ">Adherence goal</div>
+        <div class="insights-stat-desc" data-en="Recommended monthly medication adherence rate for chronic kidney patients" data-vi="Tỷ lệ uống thuốc đúng hạn được khuyến nghị mỗi tháng cho bệnh nhân thận mạn">Recommended monthly medication adherence rate for chronic kidney patients</div>
+      </div>
+      <div class="insights-stat">
+        <div class="insights-stat-value">&lt;140<span style="font-size:.45em;font-weight:500;letter-spacing:0">/90</span></div>
+        <div class="insights-stat-label" data-en="BP target (mmHg)" data-vi="Mục tiêu huyết áp (mmHg)">BP target (mmHg)</div>
+        <div class="insights-stat-desc" data-en="Pre-dialysis systolic/diastolic blood pressure goal for most kidney patients" data-vi="Mục tiêu huyết áp tâm thu/tâm trương trước lọc máu cho hầu hết bệnh nhân thận">Pre-dialysis systolic/diastolic blood pressure goal for most kidney patients</div>
+      </div>
+      <div class="insights-stat">
+        <div class="insights-stat-value">30·60·90</div>
+        <div class="insights-stat-label" data-en="Day report windows" data-vi="Cửa sổ báo cáo theo ngày">Day report windows</div>
+        <div class="insights-stat-desc" data-en="Choose the period that matches your check-up schedule and treatment milestones" data-vi="Chọn khoảng thời gian phù hợp với lịch tái khám và các mốc điều trị của bạn">Choose the period that matches your check-up schedule and treatment milestones</div>
+      </div>
+    </div>
+
+    <h3 class="insights-tips-title" data-en="Tips for better tracking" data-vi="Mẹo theo dõi hiệu quả hơn">Tips for better tracking</h3>
+    <div class="insights-tips-grid">
+      <div class="insights-tip">
+        <div class="insights-tip-icon">⚖️</div>
+        <div>
+          <div class="insights-tip-title" data-en="Weigh at the same time every day" data-vi="Cân cùng một thời điểm mỗi ngày">Weigh at the same time every day</div>
+          <p class="insights-tip-text" data-en="Step on the scale each morning before eating or drinking. A consistent baseline gives your doctor an accurate dry-weight reference and makes UF volume calculations reliable across sessions." data-vi="Cân vào mỗi buổi sáng trước khi ăn hoặc uống. Cân nặng khô ổn định giúp bác sĩ có mốc tham chiếu chính xác và giúp tính lượng dịch cần rút (UF volume) chính xác hơn qua từng buổi lọc.">Step on the scale each morning before eating or drinking. A consistent baseline gives your doctor an accurate dry-weight reference and makes UF volume calculations reliable across sessions.</p>
+        </div>
+      </div>
+      <div class="insights-tip">
+        <div class="insights-tip-icon">🩺</div>
+        <div>
+          <div class="insights-tip-title" data-en="Log BP within 5 minutes of each session" data-vi="Ghi huyết áp trong vòng 5 phút mỗi buổi lọc">Log BP within 5 minutes of each session</div>
+          <p class="insights-tip-text" data-en="Record blood pressure immediately before starting and right after finishing. Delayed readings skew your 90-day trend and can mask hypotension episodes that matter to your nephrologist." data-vi="Ghi huyết áp ngay trước khi bắt đầu và ngay sau khi kết thúc buổi lọc. Ghi trễ sẽ làm sai lệch xu hướng 90 ngày và có thể bỏ sót các đợt tụt huyết áp quan trọng với bác sĩ thận.">Record blood pressure immediately before starting and right after finishing. Delayed readings skew your 90-day trend and can mask hypotension episodes that matter to your nephrologist.</p>
+        </div>
+      </div>
+      <div class="insights-tip">
+        <div class="insights-tip-icon">📋</div>
+        <div>
+          <div class="insights-tip-title" data-en="Review your report the night before appointments" data-vi="Xem báo cáo tối hôm trước khi tái khám">Review your report the night before appointments</div>
+          <p class="insights-tip-text" data-en="Open your 30-day analytics before any doctor visit. Adherence rate, missed doses, and BP range tell a clear story — no more trying to recall details from memory under pressure." data-vi="Mở báo cáo 30 ngày trước mỗi lần gặp bác sĩ. Tỷ lệ tuân thủ, liều bỏ lỡ và khoảng huyết áp kể một câu chuyện rõ ràng — không còn phải cố nhớ từng chi tiết khi đang lo lắng.">Open your 30-day analytics before any doctor visit. Adherence rate, missed doses, and BP range tell a clear story — no more trying to recall details from memory under pressure.</p>
+        </div>
+      </div>
+      <div class="insights-tip">
+        <div class="insights-tip-icon">💊</div>
+        <div>
+          <div class="insights-tip-title" data-en="Set refill alerts 7 days early" data-vi="Đặt cảnh báo bổ sung thuốc trước 7 ngày">Set refill alerts 7 days early</div>
+          <p class="insights-tip-text" data-en="Enable stock tracking and trigger the alert a week before running out — not 1 or 2 days. Pharmacies run out, weekends delay orders, and missing a dose of Tacrolimus or Mycophenolate has real consequences." data-vi="Bật theo dõi tồn kho và đặt cảnh báo trước một tuần khi sắp hết — không phải 1 hay 2 ngày. Nhà thuốc có thể hết hàng, đơn hàng trễ vào cuối tuần, và bỏ lỡ một liều Tacrolimus hay Mycophenolate có thể gây hậu quả nghiêm trọng.">Enable stock tracking and trigger the alert a week before running out — not 1 or 2 days. Pharmacies run out, weekends delay orders, and missing a dose of Tacrolimus or Mycophenolate has real consequences.</p>
+        </div>
       </div>
     </div>
   </div>
