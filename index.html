@@ -559,6 +559,27 @@
       letter-spacing: -.1px;
     }
 
+    /* Kidney phone showcase */
+    .phone-showcase {
+      display: flex; justify-content: center; gap: 32px;
+      margin-top: 64px; align-items: flex-start;
+    }
+    .showcase-phone {
+      width: 210px; flex-shrink: 0;
+      filter: drop-shadow(0 36px 72px rgba(0,0,0,.55));
+    }
+    .showcase-phone .phone-frame {
+      background: #0a1a16; border-color: rgba(255,255,255,.15);
+    }
+    .showcase-phone .phone-screen {
+      padding: 0; background: #000;
+    }
+    .showcase-label {
+      text-align: center; margin-top: 18px;
+      font-size: 13px; font-weight: 600;
+      color: #5ee0bc; letter-spacing: .02em;
+    }
+
     /* More features — parchment */
     .tile-more {
       background: var(--parchment); padding: 100px 22px;
@@ -727,6 +748,8 @@
       .insights-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); }
       .insights-stat:last-child { border-bottom: none; }
       .insights-tips-grid { grid-template-columns: 1fr; }
+      .phone-showcase { gap: 20px; }
+      .showcase-phone { width: 155px; }
       .insights-tip:first-child, .insights-tip:nth-child(2),
       .insights-tip:nth-child(3), .insights-tip:last-child { border-radius: 0; }
       .tile-insights { padding: 72px 22px; }
@@ -785,32 +808,8 @@
     <div class="hero-glow"></div>
     <div class="hero-phone">
       <div class="phone-frame">
-        <div class="phone-screen">
-          <div class="ps-status">
-            <span class="ps-time">9:41</span>
-            <span style="font-size:10px;color:#c7c7cc">●●●</span>
-          </div>
-          <div class="ps-label" data-en="Today's Schedule" data-vi="Lịch hôm nay">Today's Schedule</div>
-          <div class="ps-date" data-en="Friday, May 2" data-vi="Thứ Sáu, 2/5">Friday, May 2</div>
-          <div class="ps-med">
-            <div class="ps-dot" style="background:#ff3b30"></div>
-            <div><div class="ps-name">Estradiol</div><div class="ps-dose">2mg · 8:00 AM</div></div>
-            <span class="ps-check ps-done">✓</span>
-          </div>
-          <div class="ps-med">
-            <div class="ps-dot" style="background:#ff9500"></div>
-            <div><div class="ps-name">Tacrolimus</div><div class="ps-dose">1mg · 12:00</div></div>
-            <span class="ps-check ps-pend">○</span>
-          </div>
-          <div class="ps-med">
-            <div class="ps-dot" style="background:#007aff"></div>
-            <div><div class="ps-name">Mycophenolate</div><div class="ps-dose">500mg · 20:00</div></div>
-            <span class="ps-check ps-pend">○</span>
-          </div>
-          <div class="ps-progress">
-            <div class="ps-prog-bar"><div class="ps-prog-fill"></div></div>
-            <div class="ps-prog-label" data-en="1 of 3 doses today" data-vi="1/3 liều hôm nay">1 of 3 doses today</div>
-          </div>
+        <div class="phone-screen" style="padding:0;background:#000;">
+          <img src="/img/screen-lab-results.png" alt="Dose Diary — Lab Results & eGFR Trend Chart" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
         </div>
       </div>
     </div>
@@ -978,6 +977,26 @@
       <div class="kidney-stat">
         <div class="kidney-stat-value" data-en="0" data-vi="0">0</div>
         <div class="kidney-stat-label" data-en="data uploaded to the cloud" data-vi="dữ liệu tải lên đám mây">data uploaded to the cloud</div>
+      </div>
+    </div>
+
+    <!-- Phone screenshot showcase -->
+    <div class="phone-showcase">
+      <div class="showcase-phone">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <img src="/img/screen-period-report.png" alt="Dose Diary — Period Report comparing two exam results" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
+          </div>
+        </div>
+        <p class="showcase-label" data-en="Period Report" data-vi="Báo cáo theo kỳ">Period Report</p>
+      </div>
+      <div class="showcase-phone">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <img src="/img/screen-pdf-report.png" alt="Dose Diary — Full PDF kidney report for doctor" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
+          </div>
+        </div>
+        <p class="showcase-label" data-en="PDF for Doctor" data-vi="PDF gửi bác sĩ">PDF for Doctor</p>
       </div>
     </div>
   </div>
